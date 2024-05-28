@@ -82,7 +82,9 @@ class Auth extends BaseController
         if($getData) {
             if ($getData['password'] === $password) {
                 $sessionData = [
-                    'email' => $getData['password'],
+                    'email' => $getData['email'],
+                    'name' => $getData['name'],
+                    'role' => $getData['role'],
                     'isloggin' => true,
                 ];
                 $this->session->set($sessionData);
