@@ -106,8 +106,6 @@ class Filters extends BaseFilters
      * @var array<string, array<string, list<string>>>
      */
     public array $filters = [
-        'auth' => [
-            'before' => ['home/*'], // Terapkan pada semua metode dalam controller Home
-        ],
+        'auth' => ['before' => ['Home/*']],
     ];
 }
