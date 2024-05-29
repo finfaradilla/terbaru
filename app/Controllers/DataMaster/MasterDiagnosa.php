@@ -4,30 +4,30 @@ namespace App\Controllers\DataMaster;
 
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
-use App\Models\DataMaster\MasterPoliModel;
+use App\Models\DataMaster\MasterDiagnosaModel;
 
-class MasterPoli extends BaseController
+class MasterDiagnosa extends BaseController
 {
     protected $Validation;
     protected $Model;
     public function __construct()
     {
         $this->session = session();
-        $this->Model = new MasterPoliModel();
+        $this->Model = new MasterDiagnosaModel();
         $this->Validation = \Config\Services::validation();
     }
 
     public function save()
     {
-        $kode = $this->request->getVar('kode_poli');
+        $kode = $this->request->getVar('kode');
         $valid = $this->validate([
-            'kode_poli' => [
-                'rules' => 'required|min_length[7]|max_length[20]|is_unique[master_poli.kode]',
+            'kode' => [
+                'rules' => 'required|min_length[7]|max_length[20]|is_unique[master_diagnosa.kode]',
                 'errors' => [
-                    'required' => 'Kode Poli Wajib Diisi.',
-                    'min_length' => 'Minimal Mengisikan 7 Karakter.',
-                    'max_length' => 'Maksimal Mengisikan 20 Karakter.',
-                    'is_unique' => "Kode " . $kode . " Sudah Terdaftar"
+                    'required' => 'Kode Diagnosa Wajib Diisi.',
+                    'min_length' => 'Kode Diagnosa Minimal Mengisikan 7 Karakter.',
+                    'max_length' => 'Kode Diagnosa Maksimal Mengisikan 20 Karakter.',
+                    'is_unique' => "Kode Diagnosa " . $kode . " Sudah Terdaftar"
                 ]
             ],
             'keterangan' => [
@@ -42,24 +42,25 @@ class MasterPoli extends BaseController
             return redirect()->back()->withInput()->with('errors', $this->Validation->getErrors());
         }
         $data = [
-            'kode' => $this->request->getVar('kode_poli'),
+            'kode' => $kode,
             'keterangan' => $this->request->getVar('keterangan'),
+            'tarif' => $this->request->getVar('tarif'),
         ];
         $this->Model->save($data);
         $this->session->setFlashdata('validation', [
             'type' => 'success',
-            'pesan' => 'Kode Poli <strong>'. $this->request->getVar('kode_poli') . '</strong> Berhasil Ditambah'
+            'pesan' => 'Kode Diagnosa <strong>'. $kode . '</strong> Berhasil Ditambah'
         ]);
-        return redirect()->to('Dashboard/master_poli')->withInput();
+        return redirect()->to('Dashboard/master_diagnosa')->withInput();
     }
 
     public function delete()
     {
-        $kode = $this->request->getVar('kode_poli');
+        $kode = $this->request->getVar('kode');
         $response = $this->Model->where('kode', $kode)->delete();
         $this->session->setFlashdata('validation', [
             'type' => 'warning',
-            'pesan' => 'Kode Poli <strong>'. $this->request->getVar('kode_poli') . '</strong> Berhasil Dihapus'
+            'pesan' => 'Kode Diagnosa <strong>'. $kode . '</strong> Berhasil Dihapus'
         ]);
         return true;
     }
@@ -69,12 +70,13 @@ class MasterPoli extends BaseController
         $getData = $this->Model->find($id);
         $data = [
             'title' => 'Edit '. $getData['kode'],
-            'name' => 'master_poli',
+            'name' => 'master_diagnosa',
             'menu_open' => true,
-            'data_poli' => $getData,
+            'data_diagnosa' => $getData,
         ];
-        return view('Dashboard/data_master/master_poli_edit', $data);
+        return view('Dashboard/data_master/master_diagnosa_edit', $data);
     }
+
     public function update()
     {
         $kode = $this->request->getVar('kode');
@@ -93,9 +95,9 @@ class MasterPoli extends BaseController
             'keterangan' => $this->request->getVar('keterangan'),
         ];
         $this->Model->where('kode', $kode)->set($data)->update();
-        return redirect()->to('Dashboard/master_poli')->with('validation', [
+        return redirect()->to('Dashboard/master_diagnosa')->with('validation', [
             'type' => 'success',
-            'pesan' => 'Kode Poli <strong>'. $kode . '</strong> Berhasil Di Perbarui'
+            'pesan' => 'Kode Diagnosa <strong>'. $kode . '</strong> Berhasil Di Perbarui'
         ]);
     }
 }

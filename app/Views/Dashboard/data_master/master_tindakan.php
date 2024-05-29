@@ -43,18 +43,18 @@
                                                 aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="<?= base_url('DataMaster/MasterDokter/save') ?>" method="POST">
+                                            <form action="<?= base_url('DataMaster/MasterTindakan/save') ?>" method="POST">
                                                 <?= csrf_field() ?>
                                                 <div class="card-body">
                                                     <div class="mb-3">
-                                                        <label for="kode" class="form-label">Kode Dokter</label>
-                                                        <input type="text" class="form-control" name="kode"
-                                                            id="kode">
+                                                        <label for="kode_tindakan" class="form-label">Kode Tindakan</label>
+                                                        <input type="text" class="form-control" name="kode_tindakan"
+                                                            id="kode_tindakan">
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="nama" class="form-label">Nama Dokter</label>
-                                                        <input type="text" class="form-control" name="nama"
-                                                            id="nama">
+                                                        <label for="keterangan" class="form-label">Keterangan</label>
+                                                        <textarea name="keterangan" id="keterangan"
+                                                            class="form-control"></textarea>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="tarif" class="form-label">Tarif</label>
@@ -117,19 +117,22 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                        if (!empty($data_dokter)) {
+                                        if (!empty($data_tindakan)) {
                                             $no = 1;
-                                            foreach ($data_dokter as $key => $value) {
+                                            foreach ($data_tindakan as $key => $value) {
                                     ?>
                                     <tr class="align-middle text-center">
                                         <td style="width: 4%; text-align: center;"><?= $no++ ?></td>
                                         <td><strong><?= $value['kode'] ?></strong></td>
-                                        <td><?= $value['nama'] ?></td>
+                                        <td><?= $value['keterangan'] ?></td>
                                         <td>Rp <?= number_format($value['tarif']) ?></td>
                                         <td>
-                                            <a href="<?= base_url('DataMaster/MasterDokter/edit/'.$value['id']) ?>" class="btn btn-warning"><i
-                                                    class="fa-solid fa-pen-to-square"></i></a>
-                                            <button onclick="deleteDokter('<?= $value['kode'] ?>')" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                            <a href="<?= base_url('DataMaster/MasterTindakan/edit/'.$value['id']) ?>" class="btn btn-warning">
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                            </a>
+                                            <button onclick="deleteTindakan('<?= $value['kode'] ?>')" class="btn btn-danger">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
                                         </td>
                                     </tr>
                                     <?php
@@ -137,7 +140,7 @@
                                         } else {
                                     ?>
                                     <tr class="align-middle">
-                                        <td colspan='5' style="width: 4%; text-align: center; padding-top: 10px">
+                                        <td colspan='4' style="width: 4%; text-align: center; padding-top: 10px">
                                             <h5><strong>Tidak Ada Data</strong></h5>
                                         </td>
                                     </tr>
@@ -155,7 +158,7 @@
 </main>
 
 <script>
-    function deleteDokter(id) {
+    function deleteTindakan(id) {
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: "btn btn-success",
@@ -174,7 +177,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: '<?= base_url('DataMaster/MasterDokter/delete') ?>',
+                    url: '<?= base_url('DataMaster/MasterTindakan/delete') ?>',
                     type: 'POST',
                     data: {
                         kode: id,
@@ -185,7 +188,7 @@
                     error: function(xhr, status, error) {
                         swalWithBootstrapButtons.fire({
                             title: "Dibatalkan",
-                            text: "Kode Dokter " + id + ' Gagal Dihapus',
+                            text: "Kode Tindakan " + id + ' Gagal Dihapus',
                             icon: "error"
                         });
                     }
@@ -196,7 +199,7 @@
             ) {
                 swalWithBootstrapButtons.fire({
                     title: "Dibatalkan",
-                    text: "Kode Dokter " + id + ' Gagal Dihapus',
+                    text: "Kode Tindakan " + id + ' Gagal Dihapus',
                     icon: "error"
                 });
             }

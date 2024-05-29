@@ -43,29 +43,44 @@
                                                 aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="<?= base_url('DataMaster/MasterDokter/save') ?>" method="POST">
+                                            <form action="<?= base_url('DataMaster/MasterSupplier/save') ?>" method="POST">
                                                 <?= csrf_field() ?>
                                                 <div class="card-body">
                                                     <div class="mb-3">
-                                                        <label for="kode" class="form-label">Kode Dokter</label>
+                                                        <label for="kode" class="form-label">Kode Supplier</label>
                                                         <input type="text" class="form-control" name="kode"
                                                             id="kode">
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="nama" class="form-label">Nama Dokter</label>
+                                                        <label for="nama" class="form-label">Nama</label>
                                                         <input type="text" class="form-control" name="nama"
                                                             id="nama">
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="tarif" class="form-label">Tarif</label>
-                                                        <input type="number" class="form-control" name="tarif"
-                                                            id="tarif">
+                                                        <label for="alamat" class="form-label">Alamat</label>
+                                                        <textarea name="alamat" id="alamat"
+                                                            class="form-control"></textarea>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="sales" class="form-label">Sales Rep</label>
+                                                        <input type="text" class="form-control" name="sales"
+                                                            id="sales">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="no_tlp" class="form-label">No Tlp</label>
+                                                        <input type="text" class="form-control" name="no_tlp"
+                                                            id="no_tlp">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="email" class="form-label">Email</label>
+                                                        <input type="email" class="form-control" name="email"
+                                                            id="email">
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
                                                         data-bs-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                    <button type="submit" class="btn btn-primary">Tambah</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -110,26 +125,35 @@
                                     <tr class="text-center">
                                         <th style="width: 4%;">No</th>
                                         <th style="width: 20%">Kode</th>
-                                        <th>Keterangan</th>
-                                        <th>Tarif</th>
+                                        <th>Nama Supplier</th>
+                                        <th>Alamat</th>
+                                        <th>Sales Rep</th>
+                                        <th>No Telp</th>
+                                        <th>Email</th>
                                         <th style="width: 10%">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                        if (!empty($data_dokter)) {
+                                        if (!empty($data_supplier)) {
                                             $no = 1;
-                                            foreach ($data_dokter as $key => $value) {
+                                            foreach ($data_supplier as $key => $value) {
                                     ?>
                                     <tr class="align-middle text-center">
                                         <td style="width: 4%; text-align: center;"><?= $no++ ?></td>
                                         <td><strong><?= $value['kode'] ?></strong></td>
                                         <td><?= $value['nama'] ?></td>
-                                        <td>Rp <?= number_format($value['tarif']) ?></td>
+                                        <td><?= $value['alamat'] ?></td>
+                                        <td><?= $value['sales'] ?></td>
+                                        <td><?= $value['no_tlp'] ?></td>
+                                        <td><?= $value['email'] ?></td>
                                         <td>
-                                            <a href="<?= base_url('DataMaster/MasterDokter/edit/'.$value['id']) ?>" class="btn btn-warning"><i
-                                                    class="fa-solid fa-pen-to-square"></i></a>
-                                            <button onclick="deleteDokter('<?= $value['kode'] ?>')" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                            <a href="<?= base_url('DataMaster/MasterSupplier/edit/'.$value['id']) ?>" class="btn btn-warning">
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                            </a>
+                                            <button onclick="deleteSupplier('<?= $value['kode'] ?>')" class="btn btn-danger">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
                                         </td>
                                     </tr>
                                     <?php
@@ -137,7 +161,7 @@
                                         } else {
                                     ?>
                                     <tr class="align-middle">
-                                        <td colspan='5' style="width: 4%; text-align: center; padding-top: 10px">
+                                        <td colspan='8' style="width: 4%; text-align: center; padding-top: 10px">
                                             <h5><strong>Tidak Ada Data</strong></h5>
                                         </td>
                                     </tr>
@@ -146,7 +170,7 @@
                                     ?>
                                 </tbody>
                             </table>
-                        </div> <!-- /.card-body -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -155,7 +179,7 @@
 </main>
 
 <script>
-    function deleteDokter(id) {
+    function deleteSupplier(id) {
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: "btn btn-success",
@@ -174,7 +198,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: '<?= base_url('DataMaster/MasterDokter/delete') ?>',
+                    url: '<?= base_url('DataMaster/MasterSupplier/delete') ?>',
                     type: 'POST',
                     data: {
                         kode: id,
@@ -185,7 +209,7 @@
                     error: function(xhr, status, error) {
                         swalWithBootstrapButtons.fire({
                             title: "Dibatalkan",
-                            text: "Kode Dokter " + id + ' Gagal Dihapus',
+                            text: "Kode Supplier " + id + ' Gagal Dihapus',
                             icon: "error"
                         });
                     }
@@ -196,7 +220,7 @@
             ) {
                 swalWithBootstrapButtons.fire({
                     title: "Dibatalkan",
-                    text: "Kode Dokter " + id + ' Gagal Dihapus',
+                    text: "Kode Supplier " + id + ' Gagal Dihapus',
                     icon: "error"
                 });
             }

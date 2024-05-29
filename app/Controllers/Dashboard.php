@@ -6,16 +6,24 @@ use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\DataMaster\MasterPoliModel;
 use App\Models\DataMaster\MasterDokterModel;
+use App\Models\DataMaster\MasterTindakanModel;
+use App\Models\DataMaster\MasterDiagnosaModel;
+use App\Models\DataMaster\MasterAdministrasiModel;
+use App\Models\DataMaster\MasterPenunjangModel;
+use App\Models\DataMaster\MasterSupplierModel;
 
 class Dashboard extends BaseController
 {
-    protected $ModelPoli;
-    protected $ModelDokter;
     public function __construct()
     {
         $this->session = session();
         $this->ModelPoli = new MasterPoliModel();
         $this->ModelDokter = new MasterDokterModel();
+        $this->ModelTindakan = new MasterTindakanModel();
+        $this->ModelDiagnosa = new MasterDiagnosaModel();
+        $this->ModelAdministrasi = new MasterAdministrasiModel();
+        $this->ModelPenunjang = new MasterPenunjangModel();
+        $this->ModelSupplier = new MasterSupplierModel();
     }
 
     public function index()
@@ -23,6 +31,7 @@ class Dashboard extends BaseController
         $data = [
             'title' => 'Dashboard',
             'name' => 'dashboard',
+            'dataDokter' => $this->ModelDokter->findAll(),
         ];
         return view('Dashboard/index', $data);
     }
@@ -47,5 +56,60 @@ class Dashboard extends BaseController
             'data_dokter' => $this->ModelDokter->findAll(),
         ];
         return view('Dashboard/data_master/master_dokter', $data);
+    }
+
+    public function master_tindakan()
+    {
+        $data = [
+            'title' => 'Master Tindakan',
+            'name' => 'master_tindakan',
+            'menu_open' => true,
+            'data_tindakan' => $this->ModelTindakan->findAll(),
+        ];
+        return view('Dashboard/data_master/master_tindakan', $data);
+    }
+
+    public function master_diagnosa()
+    {
+        $data = [
+            'title' => 'Master Diagnosa',
+            'name' => 'master_diagnosa',
+            'menu_open' => true,
+            'data_diagnosa' => $this->ModelDiagnosa->findAll(),
+        ];
+        return view('Dashboard/data_master/master_diagnosa', $data);
+    }
+
+    public function master_administrasi()
+    {
+        $data = [
+            'title' => 'Master Administrasi',
+            'name' => 'master_administrasi',
+            'menu_open' => true,
+            'data_administrasi' => $this->ModelAdministrasi->findAll(),
+        ];
+        return view('Dashboard/data_master/master_administrasi', $data);
+    }
+
+    public function master_penunjang()
+    {
+        $data = [
+            'title' => 'Master Penunjang',
+            'name' => 'master_penunjang',
+            'menu_open' => true,
+            'data_penunjang' => $this->ModelPenunjang->findAll(),
+        ];
+        return view('Dashboard/data_master/master_penunjang', $data);
+    }
+
+    public function master_supplier()
+    {
+        $data = [
+            'title' => 'Master Supplier',
+            'name' => 'master_supplier',
+            'menu_open' => true,
+            'data_supplier' => $this->ModelSupplier->findAll(),
+        ];
+        return view('Dashboard/data_master/master_supplier', $data);
     }
 }
