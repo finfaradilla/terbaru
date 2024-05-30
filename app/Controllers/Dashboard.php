@@ -11,6 +11,8 @@ use App\Models\DataMaster\MasterDiagnosaModel;
 use App\Models\DataMaster\MasterAdministrasiModel;
 use App\Models\DataMaster\MasterPenunjangModel;
 use App\Models\DataMaster\MasterSupplierModel;
+use App\Models\DataMaster\MasterObatModel;
+use App\Models\DataMaster\MasterKamarModel;
 
 class Dashboard extends BaseController
 {
@@ -24,6 +26,8 @@ class Dashboard extends BaseController
         $this->ModelAdministrasi = new MasterAdministrasiModel();
         $this->ModelPenunjang = new MasterPenunjangModel();
         $this->ModelSupplier = new MasterSupplierModel();
+        $this->ModelObat = new MasterObatModel();
+        $this->ModelKamar = new MasterKamarModel();
     }
 
     public function index()
@@ -111,5 +115,28 @@ class Dashboard extends BaseController
             'data_supplier' => $this->ModelSupplier->findAll(),
         ];
         return view('Dashboard/data_master/master_supplier', $data);
+    }
+
+    public function master_obat()
+    {
+        $data = [
+            'title' => 'Master Obat',
+            'name' => 'master_obat',
+            'menu_open' => true,
+            'data_obat' => $this->ModelObat->findAll(),
+            'data_supplier' => $this->ModelSupplier->findAll(),
+        ];
+        return view('Dashboard/data_master/master_obat', $data);
+    }
+    
+    public function master_kamar()
+    {
+        $data = [
+            'title' => 'Master Kamar',
+            'name' => 'master_kamar',
+            'menu_open' => true,
+            'data_kamar' => $this->ModelKamar->findAll(),
+        ];
+        return view('Dashboard/data_master/master_kamar', $data);
     }
 }

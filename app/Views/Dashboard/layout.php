@@ -168,7 +168,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="<?= base_url('Dashboard/pasien') ?>"
+                            <a href="<?= base_url('/Pasien') ?>"
                                 class="nav-link <?= ($name == 'pasien') ? 'active' : '' ?>">
                                 <i class="nav-icon fa-solid fa-user-nurse"></i>
                                 <p>Pasien</p>
