@@ -57,7 +57,9 @@ function tanggal($tanggal) {
                 <div class="col-md">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Data Pasien</h4>
+                            <a href="<?= base_url('/Pasien/tambah') ?>" class="btn btn-primary">
+                                <i class="fa-solid fa-folder-plus"></i>
+                            </a>
                         </div>
 
                         <div class="container py-3">
@@ -95,11 +97,13 @@ function tanggal($tanggal) {
                                 <thead>
                                     <tr class="text-center">
                                         <th style="width: 4%;">No</th>
-                                        <th style="width: 20%">Nama</th>
-                                        <th>Status</th>
-                                        <th>No. RM</th>
+                                        <th style="width: 10%">Foto</th>
+                                        <th>No RM</th>
+                                        <th>BPJS</th>
+                                        <th>Nama Pasien</th>
                                         <th>Jenis Kelamin</th>
-                                        <th>tanggal Lahir</th>
+                                        <th>Tanggal Lahir</th>
+                                        <th>Alamat</th>
                                         <th>No Telp</th>
                                         <th>Pekerjaan</th>
                                         <th style="width: 10%">Action</th>
@@ -113,18 +117,24 @@ function tanggal($tanggal) {
                                     ?>
                                     <tr class="align-middle text-center">
                                         <td style="width: 4%; text-align: center;"><?= $no++ ?></td>
-                                        <td><strong><?= $value['nama'] ?></strong></td>
-                                        <td><?= $value['status'] ?></td>
+                                        <td class="d-flex justify-content-center">
+                                            <div class="image-profile-container">
+                                                <img src="<?= base_url($value['image']) ?>" alt="Profile">
+                                            </div>
+                                        </td>
                                         <td><?= $value['no_rm'] ?></td>
+                                        <td><?= $value['bpjs'] ?></td>
+                                        <td><?= $value['nama'] ?></td>
                                         <td><?= $value['jenis_kelamin'] ?></td>
                                         <td><?= $value['tgl_lahir'] ?></td>
+                                        <td><?= $value['alamat'] ?></td>
                                         <td><?= $value['no_tlp'] ?></td>
                                         <td><?= $value['pekerjaan'] ?></td>
                                         <td>
-                                            <a href="<?= base_url('DataMaster/MasterObat/edit/'.$value['id']) ?>" class="btn btn-warning">
+                                            <a href="<?= base_url('Pasien/edit/'.$value['id']) ?>" class="btn btn-warning">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </a>
-                                            <button onclick="deleteObat('<?= $value['id'] ?>')" class="btn btn-danger">
+                                            <button onclick="deletePasien('<?= $value['id'] ?>')" class="btn btn-danger">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
                                         </td>
@@ -152,7 +162,7 @@ function tanggal($tanggal) {
 </main>
 
 <script>
-    function deleteObat(id) {
+    function deletePasien(id) {
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: "btn btn-success",
@@ -171,7 +181,7 @@ function tanggal($tanggal) {
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: '<?= base_url('DataMaster/MasterObat/delete') ?>',
+                    url: '<?= base_url('Pasien/delete') ?>',
                     type: 'POST',
                     data: {
                         kode: id,
@@ -182,7 +192,7 @@ function tanggal($tanggal) {
                     error: function(xhr, status, error) {
                         swalWithBootstrapButtons.fire({
                             title: "Dibatalkan",
-                            text: "Kode Obat " + id + ' Gagal Dihapus',
+                            text: "Pasien " + id + ' Gagal Dihapus',
                             icon: "error"
                         });
                     }
@@ -193,7 +203,7 @@ function tanggal($tanggal) {
             ) {
                 swalWithBootstrapButtons.fire({
                     title: "Dibatalkan",
-                    text: "Kode Obat " + id + ' Gagal Dihapus',
+                    text: "Pasien " + id + ' Gagal Dihapus',
                     icon: "error"
                 });
             }
