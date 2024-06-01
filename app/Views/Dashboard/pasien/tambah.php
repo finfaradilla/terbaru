@@ -52,14 +52,14 @@
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="nama" class="form-label">Nama</label>
-                                                    <input type="text" class="form-control <?= session('errors.nama') ? 'is-invalid' : '' ?>" name="nama" id="nama" value="<?= old('no_ktp') ?>">
+                                                    <input type="text" class="form-control <?= session('errors.nama') ? 'is-invalid' : '' ?>" name="nama" id="nama" value="<?= old('nama') ?>">
                                                     <div class="invalid-feedback">
                                                         <?= session('errors.nama') ?>
                                                     </div>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="bpjs" class="form-label">No BPJS (Optional)</label>
-                                                    <input type="number" class="form-control <?= session('errors.bpjs') ? 'is-invalid' : '' ?>" name="bpjs" id="bpjs" value="<?= old('no_ktp') ?>">
+                                                    <input type="number" class="form-control <?= session('errors.bpjs') ? 'is-invalid' : '' ?>" name="bpjs" id="bpjs" value="<?= old('bpjs') ?>">
                                                     <div class="invalid-feedback">
                                                         <?= session('errors.bpjs') ?>
                                                     </div>
@@ -103,7 +103,7 @@
                                                     <label for="tgl_lahir" class="form-label">Tanggal Lahir</label>
                                                     <input type="date"
                                                         class="form-control <?= session('errors.tgl_lahir') ? 'is-invalid' : '' ?>"
-                                                        name="tgl_lahir" id="tartgl_lahir" value="<?= old('no_ktp') ?>">
+                                                        name="tgl_lahir" id="tgl_lahir" value="<?= old('tgl_lahir') ?>">
                                                     <div class="invalid-feedback">
                                                         <?= session('errors.tgl_lahir') ?>
                                                     </div>

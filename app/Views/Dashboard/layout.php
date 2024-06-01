@@ -175,8 +175,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= base_url('Dashboard/riwayat_jalan') ?>"
-                                class="nav-link <?= ($name == 'riwayat_jalan') ? 'active' : '' ?>">
+                            <a href="<?= base_url('/RawatJalan') ?>"
+                                class="nav-link <?= ($name == 'rawat_jalan') ? 'active' : '' ?>">
                                 <i class="nav-icon fa-regular fa-calendar-check"></i>
                                 <p>Pendaftaran Riwayat Jalan</p>
                             </a>

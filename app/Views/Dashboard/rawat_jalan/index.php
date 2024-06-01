@@ -2,7 +2,6 @@
 
 <?php
 function tanggal($tanggal) {
-    // Array bulan dalam bahasa Indonesia
     $bulanIndonesia = array(
         1 => 'Januari',
         2 => 'Februari',
@@ -17,14 +16,10 @@ function tanggal($tanggal) {
         11 => 'November',
         12 => 'Desember'
     );
-    
-    // Memisahkan bagian dari tanggal
     $parts = explode('-', $tanggal);
     $tahun = $parts[0];
     $bulan = intval($parts[1]);
     $hari = intval($parts[2]);
-
-    // Mengubah format tanggal
     return "$hari " . $bulanIndonesia[$bulan] . " $tahun";
 }
 ?>
@@ -57,7 +52,7 @@ function tanggal($tanggal) {
                 <div class="col-md">
                     <div class="card">
                         <div class="card-header">
-                            <a href="<?= base_url('/Pasien/tambah') ?>" class="btn btn-primary">
+                            <a href="<?= base_url('/RawatJalan/tambah') ?>" class="btn btn-primary">
                                 <i class="fa-solid fa-folder-plus"></i>
                             </a>
                         </div>
@@ -97,44 +92,47 @@ function tanggal($tanggal) {
                                 <thead>
                                     <tr class="text-center">
                                         <th style="width: 4%;">No</th>
-                                        <th style="width: 10%">Foto</th>
+                                        <th>No Pendaftar</th>
+                                        <th>Foto</th>
                                         <th>No RM</th>
-                                        <th>BPJS</th>
                                         <th>Nama Pasien</th>
-                                        <th>Jenis Kelamin</th>
-                                        <th>Tanggal Lahir</th>
-                                        <th>Alamat</th>
-                                        <th>No Telp</th>
-                                        <th>Pekerjaan</th>
+                                        <th>Type Faskes</th>
+                                        <th>Keluhan Utama</th>
+                                        <th>Tgl & Jam</th>
+                                        <th>Poli</th>
+                                        <th>Dokter</th>
                                         <th style="width: 10%">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                        if (!empty($data_pasien)) {
+                                        if (!empty($data)) {
                                             $no = 1;
-                                            foreach ($data_pasien as $key => $value) {
+                                            foreach ($data as $key => $value) {
                                     ?>
                                     <tr class="align-middle text-center">
                                         <td style="width: 4%; text-align: center;"><?= $no++ ?></td>
+                                        <td><?= $value['data_rawat_jalan']['no_pendaftaran'] ?></td>
                                         <td class="d-flex justify-content-center">
                                             <div class="image-profile-container">
-                                                <img src="<?= base_url($value['image']) ?>" alt="Profile">
+                                                <img src="<?= base_url($value['data_pasien']['image']) ?>" alt="Profile">
                                             </div>
                                         </td>
-                                        <td><?= $value['no_rm'] ?></td>
-                                        <td><?= ($value['bpjs'] != null) ? "<span class='badge text-bg-success'>BPJS: ".substr($value['bpjs'], 0, 5).'</span>' : "<span class='badge text-bg-primary'>Umum</span>" ?></td>
-                                        <td><?= $value['nama'] ?></td>
-                                        <td><?= $value['jenis_kelamin'] ?></td>
-                                        <td><?= $value['tgl_lahir'] ?></td>
-                                        <td><?= $value['alamat'] ?></td>
-                                        <td><?= $value['no_tlp'] ?></td>
-                                        <td><?= $value['pekerjaan'] ?></td>
-                                        <td>
-                                            <a href="<?= base_url('Pasien/edit/'.$value['id']) ?>" class="btn btn-warning">
+                                        <td><?= $value['data_pasien']['no_rm'] ?></td>
+                                        <td><?= $value['data_pasien']['nama'] ?></td>
+                                        <td><?= ($value['data_rawat_jalan']['type'] == 'BPJS') ? "<span class='badge text-bg-success'>".$value['data_rawat_jalan']['type'].'</span>' : "<span class='badge text-bg-primary'>".$value['data_rawat_jalan']['type']."</span>" ?></td>
+                                        <td><?= $value['data_rawat_jalan']['keluhan'] ?></td>
+                                        <td width='10%'><?= $value['data_rawat_jalan']['tanggal'] . " Jam " . $value['data_rawat_jalan']['jam'] ?></td>
+                                        <td><?= $value['data_rawat_jalan']['id_poli'] ?></td>
+                                        <td><?= $value['data_dokter']['nama'] ?></td>
+                                        <td width="12%">
+                                            <a href="" class="btn btn-primary">
+                                                <i class="fa-solid fa-print"></i>
+                                            </a>
+                                            <a href="<?= base_url('RawatJalan/edit/'.$value['data_rawat_jalan']['id']) ?>" class="btn btn-warning">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </a>
-                                            <button onclick="deletePasien('<?= $value['id'] ?>')" class="btn btn-danger">
+                                            <button onclick="deleteRawatJalan('<?= $value['data_rawat_jalan']['id'] ?>', '<?= $value['data_rawat_jalan']['no_pendaftaran'] ?>')" class="btn btn-danger">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
                                         </td>
@@ -162,7 +160,7 @@ function tanggal($tanggal) {
 </main>
 
 <script>
-    function deletePasien(id) {
+    function deleteRawatJalan(id, nama) {
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: "btn btn-success",
@@ -172,7 +170,7 @@ function tanggal($tanggal) {
         });
         swalWithBootstrapButtons.fire({
             title: "Apakah Yakin?",
-            text: "Apkah Kamu Yakin Ingin Menghapus Data " + id,
+            text: "Apkah Kamu Yakin Ingin Menghapus Data " + nama,
             icon: "warning",
             showCancelButton: true,
             confirmButtonText: "Yakin",
@@ -181,7 +179,7 @@ function tanggal($tanggal) {
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: '<?= base_url('Pasien/delete') ?>',
+                    url: '<?= base_url('RawatJalan/delete') ?>',
                     type: 'POST',
                     data: {
                         kode: id,
@@ -192,7 +190,7 @@ function tanggal($tanggal) {
                     error: function(xhr, status, error) {
                         swalWithBootstrapButtons.fire({
                             title: "Dibatalkan",
-                            text: "Pasien " + id + ' Gagal Dihapus',
+                            text: "No Pendafataran " + nama + ' Gagal Dihapus',
                             icon: "error"
                         });
                     }
@@ -203,7 +201,7 @@ function tanggal($tanggal) {
             ) {
                 swalWithBootstrapButtons.fire({
                     title: "Dibatalkan",
-                    text: "Pasien " + id + ' Gagal Dihapus',
+                    text: "No Pendafataran " + nama + ' Gagal Dihapus',
                     icon: "error"
                 });
             }

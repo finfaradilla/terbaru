@@ -88,12 +88,6 @@ class Pasien extends BaseController
                     'required' => 'Pekerjaan Wajib Diisi.',
                 ]
             ],
-            'bpjs' => [
-                'rules' => 'numeric',
-                'errors' => [
-                    'numeric' => 'No BJPS Harus Angka'
-                ]
-            ],
             'no_tlp' => [
                 'rules' => 'numeric',
                 'errors' => [
@@ -194,12 +188,6 @@ class Pasien extends BaseController
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'Pekerjaan Wajib Diisi.',
-                ]
-            ],
-            'bpjs' => [
-                'rules' => 'numeric',
-                'errors' => [
-                    'numeric' => 'No BJPS Harus Angka'
                 ]
             ],
             'no_tlp' => [

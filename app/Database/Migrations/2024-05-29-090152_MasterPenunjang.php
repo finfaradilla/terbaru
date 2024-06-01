@@ -36,7 +36,7 @@ class MasterPenunjang extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->createTable('master_penunjang', true); // TRUE is to check if the table exists before creating it
+        $this->forge->createTable('master_penunjang', true);
     }
 
     public function down()
