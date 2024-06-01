@@ -181,29 +181,29 @@
                                 <p>Pendaftaran Riwayat Jalan</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="<?= base_url('Dashboard/rajal') ?>"
                                 class="nav-link <?= ($name == 'rajal') ? 'active' : '' ?>">
                                 <i class="nav-icon fa-solid fa-folder-closed"></i>
                                 <p>Pemeriksaan Rajal</p>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
-                            <a href="<?= base_url('Dashboard/rawat_inap') ?>"
+                            <a href="<?= base_url('RawatInap') ?>"
                                 class="nav-link <?= ($name == 'rawat_inap') ? 'active' : '' ?>">
                                 <i class="nav-icon fa-solid fa-bed-pulse"></i>
                                 <p>Pendaftaran Rawat Inap</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="<?= base_url('Dashboard/ranap') ?>"
                                 class="nav-link <?= ($name == 'ranap') ? 'active' : '' ?>">
                                 <i class="nav-icon fa-solid fa-folder-closed"></i>
                                 <p>Pemeriksaan Ranap</p>
                             </a>
-                        </li>
+                        </li> -->
 
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fa-solid fa-chart-simple"></i>
                                 <p>
@@ -275,6 +275,15 @@
                                     </a>
                                 </li>
                             </ul>
+                        </li> -->
+
+                        <li class="nav-header">SETTINGS</li>
+                        <li class="nav-item">
+                            <a href="<?= base_url('ManajemenUser') ?>"
+                                class="nav-link <?= ($name == 'manajemen_user') ? 'active' : '' ?>">
+                                <i class="fa-solid fa-headset"></i>
+                                <p>Pendaftaran Rawat Inap</p>
+                            </a>
                         </li>
                     </ul>
                     <!--end::Sidebar Menu-->
