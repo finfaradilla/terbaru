@@ -33,6 +33,7 @@ class DataUsers extends Migration
             'image' => [
                 'type' => 'MEDIUMTEXT',
                 'null' => true,
+                'default' => 'uploads/default/default.png',
             ],
             'id_role' => [
                 'type' => 'INT',
