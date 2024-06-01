@@ -59,8 +59,6 @@ class DataUsers extends Migration
         ]);
 
         $this->forge->addKey('id', true);
-        $this->forge->addKey('id_role');
-        $this->forge->addForeignKey('id_role', 'role', 'id', 'CASCADE', 'CASCADE');
         $this->forge->createTable('users');
     }
 
