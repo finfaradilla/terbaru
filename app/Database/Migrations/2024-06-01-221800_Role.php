@@ -18,17 +18,25 @@ class Role extends Migration
             'nama' => [
                 'type' => 'VARCHAR',
                 'constraint' => 150,
-                'null' => true,
+                'unique' => true,
             ],
         ]);
-
-        $this->forge->addKey('id', true);
-        $this->forge->addUniqueKey('nama');
+        $this->forge->addPrimaryKey('id');
         $this->forge->createTable('role');
+
+        // Menambahkan data ke tabel role
+        $data = [
+            ['nama' => 'Admin'],
+            ['nama' => 'Kasir'],
+            ['nama' => 'Petugas'],
+            ['nama' => 'User'],
+        ];
+        $this->db->table('role')->insertBatch($data);
     }
 
     public function down()
     {
+        // Menghapus tabel role
         $this->forge->dropTable('role');
     }
 }
