@@ -26,10 +26,10 @@ class Role extends Migration
 
         // Menambahkan data ke tabel role
         $data = [
+            ['nama' => 'User'],
             ['nama' => 'Admin'],
             ['nama' => 'Kasir'],
             ['nama' => 'Petugas'],
-            ['nama' => 'User'],
         ];
         $this->db->table('role')->insertBatch($data);
     }
