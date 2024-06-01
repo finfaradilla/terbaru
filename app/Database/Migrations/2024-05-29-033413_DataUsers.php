@@ -38,7 +38,7 @@ class DataUsers extends Migration
                 'type' => 'INT',
                 'constraint' => 1,
                 'null' => false,
-                'default' => 0,
+                'default' => 1,
             ],
             'reset_token' => [
                 'type' => 'VARCHAR',
