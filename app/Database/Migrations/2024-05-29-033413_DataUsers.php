@@ -10,46 +10,58 @@ class DataUsers extends Migration
     {
         $this->forge->addField([
             'id' => [
-                'type'           => 'INT',
-                'constraint'     => 11,
-                'unsigned'       => TRUE,
-                'auto_increment' => TRUE,
+                'type' => 'INT',
+                'constraint' => 11,
+                'unsigned' => true,
+                'auto_increment' => true,
             ],
             'email' => [
-                'type'       => 'VARCHAR',
-                'constraint' => 250,
-                'null'       => FALSE,
-                'unique'     => TRUE,
-            ],
-            'password_hash' => [ // Use password_hash column for secure passwords
                 'type' => 'VARCHAR',
-                'constraint' => 255,
-                'null' => FALSE,
+                'constraint' => 250,
+                'null' => false,
+            ],
+            'password' => [
+                'type' => 'VARCHAR',
+                'constraint' => 150,
+                'null' => false,
             ],
             'name' => [
-                'type'       => 'VARCHAR',
+                'type' => 'VARCHAR',
                 'constraint' => 250,
-                'null'       => FALSE,
+                'null' => false,
             ],
-            'role' => [ // Adjust data type and constraint if needed for roles
-                'type'       => 'INT',
-                'constraint' => 11,
-                'unsigned'   => TRUE,
-                'default'     => 0,
+            'image' => [
+                'type' => 'MEDIUMTEXT',
+                'null' => true,
+            ],
+            'id_role' => [
+                'type' => 'INT',
+                'constraint' => 1,
+                'null' => false,
+                'default' => 0,
             ],
             'reset_token' => [
-                'type'       => 'VARCHAR',
+                'type' => 'VARCHAR',
                 'constraint' => 150,
-                'null'       => TRUE,
+                'null' => true,
             ],
             'reset_expiry' => [
-                'type'       => 'INT',
+                'type' => 'INT',
                 'constraint' => 150,
-                'default'     => 0,
+                'null' => true,
+                'default' => 0,
+            ],
+            'no_hp' => [
+                'type' => 'INT',
+                'constraint' => 11,
+                'null' => true,
             ],
         ]);
 
-        $this->forge->addPrimaryKey('id');
+        $this->forge->addKey('id', true);
+        $this->forge->addKey('id_role');
+        $this->forge->addForeignKey('id_role', 'role', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->createTable('users');
     }
 
     public function down()
