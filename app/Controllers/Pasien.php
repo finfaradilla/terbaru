@@ -62,6 +62,12 @@ class Pasien extends BaseController
                     'required' => 'Tanggal Lahir Wajib Diisi.',
                 ]
             ],
+            'tmpt_lahir' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Tempat Lahir Wajib Diisi.',
+                ]
+            ],
             'alamat' => [
                 'rules' => 'required',
                 'errors' => [
@@ -129,6 +135,7 @@ class Pasien extends BaseController
             'alamat' => $this->request->getVar('alamat'),
             'no_tlp' => $this->request->getVar('no_tlp'),
             'pekerjaan' => $this->request->getVar('pekerjaan'),
+            'tempat_lahir' => $this->request->getVar('tmpt_lahir'),
         ];
         $this->Model->save($data);
         return redirect()->to('Pasien/index')->with('validation', [
@@ -162,6 +169,12 @@ class Pasien extends BaseController
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'Tanggal Lahir Wajib Diisi.',
+                ]
+            ],
+            'tmpt_lahir' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Tempat Lahir Wajib Diisi.',
                 ]
             ],
             'alamat' => [
@@ -237,6 +250,7 @@ class Pasien extends BaseController
             'alamat' => $this->request->getVar('alamat'),
             'no_tlp' => $this->request->getVar('no_tlp'),
             'pekerjaan' => $this->request->getVar('pekerjaan'),
+            'tempat_lahir' => $this->request->getVar('tmpt_lahir'),
         ];
         if ($this->Model->update($id, $data)) {
             return redirect()->to('Pasien/index')->with('validation', [

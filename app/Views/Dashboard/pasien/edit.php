@@ -111,8 +111,12 @@
                                                     <div class="invalid-feedback">
                                                         <?= session('errors.tgl_lahir') ?>
                                                     </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="tmpt_lahir" class="form-label">Tempat Lahir</label>
+                                                    <input type="text" class="form-control <?= session('errors.tmpt_lahir') ? 'is-invalid' : '' ?>" name="tmpt_lahir" id="tmpt_lahir" value="<?= $data_pasien['tempat_lahir'] ?>">
                                                     <div class="invalid-feedback">
-                                                        <?= session('errors.tgl_lahir') ?>
+                                                        <?= session('errors.tmpt_lahir') ?>
                                                     </div>
                                                 </div>
                                                 <div class="mb-3">

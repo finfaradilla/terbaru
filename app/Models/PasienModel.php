@@ -29,6 +29,7 @@ class PasienModel extends Model
         'alamat',
         'no_tlp',
         'pekerjaan',
+        'tempat_lahir',
     ];
 
     protected bool $allowEmptyInserts = false;
