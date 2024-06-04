@@ -115,7 +115,7 @@
                                         <p>Master Dokter</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                <!-- <li class="nav-item">
                                     <a href="<?= base_url('Dashboard/master_tindakan') ?>"
                                         class="nav-link <?= ($name == 'master_tindakan') ? 'active' : '' ?>">
 
@@ -128,22 +128,22 @@
 
                                         <p>Master Diagnosa</p>
                                     </a>
-                                </li>
-                                <li class="nav-item">
+                                </li> -->
+                                <!-- <li class="nav-item">
                                     <a href="<?= base_url('Dashboard/master_administrasi') ?>"
                                         class="nav-link <?= ($name == 'master_administrasi') ? 'active' : '' ?>">
 
                                         <p>Master Administrasi</p>
                                     </a>
-                                </li>
-                                <li class="nav-item">
+                                </li> -->
+                                <!-- <li class="nav-item">
                                     <a href="<?= base_url('Dashboard/master_penunjang') ?>"
                                         class="nav-link <?= ($name == 'master_penunjang') ? 'active' : '' ?>">
 
                                         <p>Master Penunjang</p>
                                     </a>
-                                </li>
-                                <li class="nav-item">
+                                </li> -->
+                                <!-- <li class="nav-item">
                                     <a href="<?= base_url('Dashboard/master_supplier') ?>"
                                         class="nav-link <?= ($name == 'master_supplier') ? 'active' : '' ?>">
 
@@ -156,7 +156,7 @@
 
                                         <p>Master Obat</p>
                                     </a>
-                                </li>
+                                </li> -->
                                 <li class="nav-item">
                                     <a href="<?= base_url('Dashboard/master_kamar') ?>"
                                         class="nav-link <?= ($name == 'master_kamar') ? 'active' : '' ?>">
@@ -203,7 +203,7 @@
                             </a>
                         </li> -->
 
-                        <!-- <li class="nav-item">
+                        <li class="nav-item <?= (!empty($menu_open_laporan)) ? 'menu-open' : '' ?>">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fa-solid fa-chart-simple"></i>
                                 <p>
@@ -213,69 +213,13 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="<?= base_url('Dashboard/master_poli') ?>"
-                                        class="nav-link <?= ($name == 'master_poli') ? 'active' : '' ?>">
-                                        <p>Master Poli</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="<?= base_url('Dashboard/master_dokter') ?>"
-                                        class="nav-link <?= ($name == 'master_dokter') ? 'active' : '' ?>">
-
-                                        <p>Master Dokter</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="<?= base_url('Dashboard/master_tindakan') ?>"
-                                        class="nav-link <?= ($name == 'master_tindakan') ? 'active' : '' ?>">
-
-                                        <p>Master Tindakan</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="<?= base_url('Dashboard/master_diagnosa') ?>"
-                                        class="nav-link <?= ($name == 'master_diagnosa') ? 'active' : '' ?>">
-
-                                        <p>Master Diagnosa</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="<?= base_url('Dashboard/master_administrasi') ?>"
-                                        class="nav-link <?= ($name == 'master_administrasi') ? 'active' : '' ?>">
-
-                                        <p>Master Administrasi</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="<?= base_url('Dashboard/master_penunjang') ?>"
-                                        class="nav-link <?= ($name == 'master_penunjang') ? 'active' : '' ?>">
-
-                                        <p>Master Penunjang</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="<?= base_url('Dashboard/master_supplier') ?>"
-                                        class="nav-link <?= ($name == 'master_supplier') ? 'active' : '' ?>">
-
-                                        <p>Master Supplier</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="<?= base_url('Dashboard/master_obat') ?>"
-                                        class="nav-link <?= ($name == 'master_obat') ? 'active' : '' ?>">
-
-                                        <p>Master Obat</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="<?= base_url('Dashboard/master_kamar') ?>"
-                                        class="nav-link <?= ($name == 'master_kamar') ? 'active' : '' ?>">
-
-                                        <p>Master Kamar</p>
+                                    <a href="<?= base_url('Laporan/PeminjamanStatusRJ') ?>"
+                                        class="nav-link <?= ($name == 'peminjaman_status_rj') ? 'active' : '' ?>">
+                                        <p>Peminjaman Status (RJ)</p>
                                     </a>
                                 </li>
                             </ul>
-                        </li> -->
+                        </li>
 
                         <li class="nav-header">SETTINGS</li>
                         <li class="nav-item">

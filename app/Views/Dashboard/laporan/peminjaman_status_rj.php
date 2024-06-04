@@ -1,29 +1,4 @@
 <?= $this->extend('Dashboard/layout') ?>
-
-<?php
-function tanggal($tanggal) {
-    $bulanIndonesia = array(
-        1 => 'Januari',
-        2 => 'Februari',
-        3 => 'Maret',
-        4 => 'April',
-        5 => 'Mei',
-        6 => 'Juni',
-        7 => 'Juli',
-        8 => 'Agustus',
-        9 => 'September',
-        10 => 'Oktober',
-        11 => 'November',
-        12 => 'Desember'
-    );
-    $parts = explode('-', $tanggal);
-    $tahun = $parts[0];
-    $bulan = intval($parts[1]);
-    $hari = intval($parts[2]);
-    return "$hari " . $bulanIndonesia[$bulan] . " $tahun";
-}
-?>
-
 <?= $this->section('content') ?>
 <main class="app-main">
     <!--begin::App Content Header-->
@@ -52,8 +27,8 @@ function tanggal($tanggal) {
                 <div class="col-md">
                     <div class="card">
                         <div class="card-header">
-                            <a href="<?= base_url('/RawatJalan/tambah') ?>" class="btn btn-primary">
-                                <i class="fa-solid fa-folder-plus"></i>
+                            <a href="<?= base_url('Laporan/PeminjamanStatusRJ/exportCSV') ?>" class="btn btn-success">
+                                <i class="fa-solid fa-file-csv" style="padding-right: 5px"></i> Export CSV
                             </a>
                         </div>
 
@@ -92,16 +67,11 @@ function tanggal($tanggal) {
                                 <thead>
                                     <tr class="text-center">
                                         <th style="width: 4%;">No</th>
-                                        <th>No Pendaftar</th>
                                         <th>Foto</th>
-                                        <th>No RM</th>
-                                        <th>Nama Pasien</th>
-                                        <th>Type Faskes</th>
-                                        <th>Keluhan Utama</th>
-                                        <th>Tgl & Jam</th>
-                                        <th>Poli</th>
-                                        <th>Dokter</th>
-                                        <th style="width: 10%">Action</th>
+                                        <th>No. RM</th>
+                                        <th>Nama</th>
+                                        <th>Tanggal & Jam</th>
+                                        <th>Tgl & Jam Kembali</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -112,7 +82,6 @@ function tanggal($tanggal) {
                                     ?>
                                     <tr class="align-middle text-center">
                                         <td style="width: 4%; text-align: center;"><?= $no++ ?></td>
-                                        <td><?= $value['data_rawat_jalan']['no_pendaftaran'] ?></td>
                                         <td class="d-flex justify-content-center">
                                             <div class="image-profile-container">
                                                 <img src="<?= base_url($value['data_pasien']['image']) ?>" alt="Profile">
@@ -120,26 +89,38 @@ function tanggal($tanggal) {
                                         </td>
                                         <td><?= $value['data_pasien']['no_rm'] ?></td>
                                         <td><?= $value['data_pasien']['nama'] ?></td>
-                                        <td><?= ($value['data_rawat_jalan']['type'] == 'BPJS') ? "<span class='badge text-bg-success'>".$value['data_rawat_jalan']['type'].'</span>' : "<span class='badge text-bg-primary'>".$value['data_rawat_jalan']['type']."</span>" ?></td>
-                                        <td><?= $value['data_rawat_jalan']['keluhan'] ?></td>
-                                        <td width='10%'><?= $value['data_rawat_jalan']['tanggal'] . " Jam " . $value['data_rawat_jalan']['jam'] ?></td>
-                                        <td><?= $value['data_rawat_jalan']['id_poli'] ?></td>
-                                        <td><?= $value['data_dokter']['nama'] ?></td>
-                                        <td width="12%">
-                                            <a href="<?= base_url('RawatJalan/edit/'.$value['data_rawat_jalan']['id']) ?>" class="btn btn-warning">
-                                                <i class="fa-solid fa-pen-to-square"></i>
-                                            </a>
-                                            <button onclick="deleteRawatJalan('<?= $value['data_rawat_jalan']['id'] ?>', '<?= $value['data_rawat_jalan']['no_pendaftaran'] ?>')" class="btn btn-danger">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
+                                        <td>
+                                            <div class="text-center" style="color: black;">
+                                                <i class="fa-solid fa-clock"></i>
+                                            </div>
+                                            <?= $value['data_laporan']['tanggal'] . ' Jam ' . $value['data_laporan']['jam'] ?>
                                         </td>
+                                        <?php
+                                            if ($value['data_laporan']['tanggal_kembali'] != null) {
+                                        ?>
+                                            <td>
+                                                <div class="text-center" style="color: green;">
+                                                    <i class="fa-solid fa-circle-check"></i>
+                                                </div>
+                                                <?= $value['data_laporan']['tanggal_kembali'] . ' Jam ' . $value['data_laporan']['jam_kembali'] ?>
+                                            </td>
+                                        <?php
+                                            } else {
+                                        ?>
+                                            <td>
+                                                <p>Belum Kembali</p>
+                                                <a href="<?= base_url('Laporan/PeminjamanStatusRJ/sudahKembali/') . $value['data_laporan']['id'] ?>" class="btn btn-primary">Sudah Kembali</a>
+                                            </td>
+                                        <?php
+                                            }
+                                        ?>
                                     </tr>
                                     <?php
                                             }
                                         } else {
                                     ?>
                                     <tr class="align-middle">
-                                        <td colspan='11' style="width: 4%; text-align: center; padding-top: 10px">
+                                        <td colspan='12' style="width: 4%; text-align: center; padding-top: 10px">
                                             <h5><strong>Tidak Ada Data</strong></h5>
                                         </td>
                                     </tr>
@@ -155,54 +136,4 @@ function tanggal($tanggal) {
         </div>
     </div>
 </main>
-
-<script>
-    function deleteRawatJalan(id, nama) {
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: "btn btn-success",
-                cancelButton: "btn btn-danger"
-            },
-            buttonsStyling: false
-        });
-        swalWithBootstrapButtons.fire({
-            title: "Apakah Yakin?",
-            text: "Apkah Kamu Yakin Ingin Menghapus Data " + nama,
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonText: "Yakin",
-            cancelButtonText: "Tidak",
-            reverseButtons: true
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: '<?= base_url('RawatJalan/delete') ?>',
-                    type: 'POST',
-                    data: {
-                        kode: id,
-                    },
-                    success: function(response) {
-                        window.location.reload();
-                    },
-                    error: function(xhr, status, error) {
-                        swalWithBootstrapButtons.fire({
-                            title: "Dibatalkan",
-                            text: "No Pendafataran " + nama + ' Gagal Dihapus',
-                            icon: "error"
-                        });
-                    }
-                });
-            } else if (
-                /* Read more about handling dismissals below */
-                result.dismiss === Swal.DismissReason.cancel
-            ) {
-                swalWithBootstrapButtons.fire({
-                    title: "Dibatalkan",
-                    text: "No Pendafataran " + nama + ' Gagal Dihapus',
-                    icon: "error"
-                });
-            }
-        });
-    }
-</script>
 <?= $this->endSection() ?>

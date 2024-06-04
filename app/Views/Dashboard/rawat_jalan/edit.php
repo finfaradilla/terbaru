@@ -107,6 +107,16 @@
                                                     <label for="poli" class="form-label">Poli</label>
                                                     <select name="poli" id="poli" class="form-control <?= session('errors.poli') ? 'is-invalid' : '' ?>">
                                                         <option value="">Pilih Poli</option>
+                                                        <option value="Poli Umum" <?= ($data['data_rawat_jalan']['id_poli'] == 'Poli Umum') ? 'selected' : '' ?>>Poli Umum</option>
+                                                    </select>
+                                                    <div class="invalid-feedback">
+                                                        <?= session('errors.poli') ?>
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="mb-3">
+                                                    <label for="poli" class="form-label">Poli</label>
+                                                    <select name="poli" id="poli" class="form-control <?= session('errors.poli') ? 'is-invalid' : '' ?>">
+                                                        <option value="">Pilih Poli</option>
                                                         <?php
                                                             foreach ($data['data_semua_poli'] as $key => $value) {
                                                         ?>
@@ -118,7 +128,7 @@
                                                     <div class="invalid-feedback">
                                                         <?= session('errors.poli') ?>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                                 <div class="mb-3">
                                                     <label for="dokter" class="form-label">Dokter</label>
                                                     <select name="dokter" id="dokter" class="form-control <?= session('errors.dokter') ? 'is-invalid' : '' ?>">

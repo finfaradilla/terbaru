@@ -23,8 +23,6 @@ class Role extends Migration
         ]);
         $this->forge->addPrimaryKey('id');
         $this->forge->createTable('role');
-
-        // Menambahkan data ke tabel role
         $data = [
             ['nama' => 'User'],
             ['nama' => 'Admin'],

@@ -128,9 +128,6 @@ function tanggal($tanggal) {
                                         <td><?= ($value['data_rawat_inap']['tgl_keluar'] != null) ? $value['data_rawat_inap']['tgl_keluar'] . ' Jam ' . $value['data_rawat_inap']['jam_keluar'] : "<span class='badge text-bg-warning'>Belum Pulang</span><br>" ?> <?php if($value['data_rawat_inap']['tgl_keluar'] == null) { ?><button onclick="pulangkan('<?= $value['data_rawat_inap']['id'] ?>', '<?= $value['data_rawat_inap']['no_pendaftaran'] ?>')" class='btn btn-primary m-2' style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Pulangkan</button><?php }?></td>
                                         <td><?= $value['data_dokter']['nama'] ?></td>
                                         <td width="12%">
-                                            <a href="" class="btn btn-primary">
-                                                <i class="fa-solid fa-print"></i>
-                                            </a>
                                             <a href="<?= base_url('RawatInap/edit/'.$value['data_rawat_inap']['id']) ?>" class="btn btn-warning">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </a>
