@@ -13,6 +13,7 @@ use App\Models\DataMaster\MasterPenunjangModel;
 use App\Models\DataMaster\MasterSupplierModel;
 use App\Models\DataMaster\MasterObatModel;
 use App\Models\DataMaster\MasterKamarModel;
+use App\Models\PasienModel;
 
 class Dashboard extends BaseController
 {
@@ -28,6 +29,7 @@ class Dashboard extends BaseController
         $this->ModelSupplier = new MasterSupplierModel();
         $this->ModelObat = new MasterObatModel();
         $this->ModelKamar = new MasterKamarModel();
+        $this->MdoelPasien = new PasienModel();
     }
 
     public function index()
@@ -36,6 +38,7 @@ class Dashboard extends BaseController
             'title' => 'Dashboard',
             'name' => 'dashboard',
             'dataDokter' => $this->ModelDokter->findAll(),
+            'dataPasien' => $this->MdoelPasien->findAll(),
         ];
         return view('Dashboard/index', $data);
     }
