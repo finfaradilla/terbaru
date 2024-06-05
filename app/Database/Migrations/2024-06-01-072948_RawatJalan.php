@@ -44,8 +44,8 @@ class RawatJalan extends Migration
                 'null'       => true,
             ],
             'id_poli' => [
-                'type'       => 'INT',
-                'constraint' => 11,
+                'type'       => 'VARCHAR',
+                'constraint' => 50,
                 'null'       => true,
             ],
             'id_dokter' => [

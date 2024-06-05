@@ -27,7 +27,7 @@
                 <div class="col-md">
                     <div class="card">
                         <div class="card-header">
-                            <a href="<?= base_url('Laporan/PeminjamanStatusRJ/exportCSV') ?>" class="btn btn-success">
+                            <a href="<?= base_url('Laporan/PeminjamanstatusRI/exportCSV') ?>" class="btn btn-success">
                                 <i class="fa-solid fa-file-csv" style="padding-right: 5px"></i> Export CSV
                             </a>
                         </div>
@@ -70,10 +70,12 @@
                                         <th>Foto</th>
                                         <th>No. RM</th>
                                         <th>Nama</th>
-                                        <th>Poli</th>
+                                        <th>Alamat</th>
+                                        <th>Kamar</th>
+                                        <th>Diagnosa</th>
                                         <th>Dokter</th>
-                                        <th>Tanggal & Jam</th>
-                                        <th>Tgl & Jam Kembali</th>
+                                        <th>Tanggal Masuk</th>
+                                        <th>Tanggal keluar</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -91,29 +93,33 @@
                                         </td>
                                         <td><?= $value['data_pasien']['no_rm'] ?></td>
                                         <td><?= $value['data_pasien']['nama'] ?></td>
-                                        <td><?= $value['data_laporan']['poli'] ?></td>
+                                        <td><?= $value['data_pasien']['alamat'] ?></td>
+                                        <td><?= $value['data_kamar']['nama'] ?></td>
+                                        <td><?= $value['data_laporan']['keluhan'] ?></td>
                                         <td><?= $value['data_dokter']['nama'] ?></td>
                                         <td>
                                             <div class="text-center" style="color: black;">
                                                 <i class="fa-solid fa-clock"></i>
                                             </div>
-                                            <?= $value['data_laporan']['tanggal'] . ' Jam ' . $value['data_laporan']['jam'] ?>
+                                            <?= $value['data_laporan']['tanggal_masuk'] . ' Jam ' . $value['data_laporan']['jam_masuk'] ?>
                                         </td>
                                         <?php
-                                            if ($value['data_laporan']['tanggal_kembali'] != null) {
+                                            if ($value['data_laporan']['tanggal_keluar'] != null) {
                                         ?>
                                             <td>
                                                 <div class="text-center" style="color: green;">
                                                     <i class="fa-solid fa-circle-check"></i>
                                                 </div>
-                                                <?= $value['data_laporan']['tanggal_kembali'] . ' Jam ' . $value['data_laporan']['jam_kembali'] ?>
+                                                <?= $value['data_laporan']['tanggal_keluar'] . ' Jam ' . $value['data_laporan']['jam_keluar'] ?>
                                             </td>
                                         <?php
                                             } else {
                                         ?>
                                             <td>
-                                                <p>Belum Kembali</p>
-                                                <a href="<?= base_url('Laporan/PeminjamanStatusRJ/sudahKembali/') . $value['data_laporan']['id'] ?>" class="btn btn-primary">Sudah Kembali</a>
+                                                <div class="text-center" style="color: red;">
+                                                    <i class="fa-solid fa-circle-xmark"></i>
+                                                </div>
+                                                Belum Pulang
                                             </td>
                                         <?php
                                             }

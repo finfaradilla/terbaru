@@ -35,6 +35,10 @@ class DataPasien extends Migration
                 'constraint' => 20,
                 'null'       => true,
             ],
+            'tempat_lahir' => [
+                'type'       => 'MEDIUMTEXT',
+                'null'       => true,
+            ],
             'bpjs' => [
                 'type'       => 'VARCHAR',
                 'constraint' => 100,

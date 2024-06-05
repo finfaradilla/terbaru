@@ -20,9 +20,18 @@ class LaporanPeminjamanRj extends Migration
                 'constraint' => 11,
                 'null'       => true,
             ],
+            'id_dokter' => [
+                'type'       => 'INT',
+                'constraint' => 11,
+                'null'       => true,
+            ],
             'poli' => [
                 'type'       => 'VARCHAR',
                 'constraint' => 150,
+                'null'       => true,
+            ],
+            'keluhan' => [
+                'type'       => 'MEDIUMTEXT',
                 'null'       => true,
             ],
             'tanggal' => [

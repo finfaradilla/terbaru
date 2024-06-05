@@ -23,6 +23,7 @@ class PeminjamanStatusRJ extends BaseController
             $dataValue[] = [
                 'data_laporan' => $value,
                 'data_pasien' => $this->Model->getPasienById($value['id_pasien']),
+                'data_dokter' => $this->Model->getDokterById($value['id_dokter']),
             ];
         };
         $data = [
@@ -68,13 +69,16 @@ class PeminjamanStatusRJ extends BaseController
         $no = 1;
         foreach ($getData as $key => $value) {
             $dataPasien = $this->Model->getPasienById($value['id_pasien']);
+            $dataDokter = $this->Model->getDokterById($value['id_dokter']);
             $dataValue[] = [
                 'no' => $no++,
                 'no_rm' => $dataPasien['no_rm'],
                 'nama_pasien' => $dataPasien['nama'],
+                'keluhan' => $value['keluhan'],
                 'poli' => $value['poli'],
-                'tgl_peminjaman' => $value['tanggal'],
-                'tgl_pengembalian' => ($value['tanggal_kembali'] != null) ? $value['tanggal_kembali'] : '-',
+                'dokter' => $dataDokter['nama'],
+                'tgl_peminjaman' => $value['tanggal'] . " ". $value['jam'],
+                'tgl_pengembalian' => ($value['tanggal_kembali'] != null) ? $value['tanggal_kembali'] . " ".$value['jam_kembali']  : '-',
             ];
         };
 
@@ -84,26 +88,14 @@ class PeminjamanStatusRJ extends BaseController
                 'pesan' => 'Data Kosong. Kamu Tidak Dapat Merubah KE CSV'
             ]);
         }
-
-        // Nama file CSV
-        $filename = 'laporan_peminjaman_status_' . date('Ymd') . '.csv';
-
-        // Header untuk file CSV
+        $filename = 'laporan_rawat_jalan_' . date('Y-m-d') . '.csv';
         header('Content-Type: text/csv');
         header('Content-Disposition: attachment;filename="' . $filename . '"');
-
-        // Buka file output
         $output = fopen('php://output', 'w');
-
-        // Menambahkan header kolom CSV
-        fputcsv($output, array('No', 'No. RM', 'Nama Pasien', 'Poli', 'Tanggal Peminjaman', 'Tanggal Pengembalian')); // sesuaikan dengan kolom tabel Anda
-
-        // Loop data dan tambahkan ke CSV
+        fputcsv($output, array('No', 'No. RM', 'Nama Pasien', 'Diagnosa', 'Poli', 'Dokter', 'Tanggal Peminjaman', 'Tanggal Pengembalian')); // sesuaikan dengan kolom tabel Anda
         foreach ($dataValue as $row) {
             fputcsv($output, $row);
         }
-
-        // Tutup file output
         fclose($output);
         exit();
         return redirect()->to('Laporan/PeminjamanStatusRJ')->with('validation', [

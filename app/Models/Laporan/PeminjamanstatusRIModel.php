@@ -4,9 +4,9 @@ namespace App\Models\Laporan;
 
 use CodeIgniter\Model;
 
-class PeminjamanStatusRJModel extends Model
+class PeminjamanstatusRIModel extends Model
 {
-    protected $table            = 'laporan_peminjaman_rj';
+    protected $table            = 'laporan_peminjaman_ri';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
@@ -14,11 +14,11 @@ class PeminjamanStatusRJModel extends Model
     protected $protectFields    = true;
     protected $allowedFields    = [
         'id_pasien',
-        'poli',
-        'tanggal',
-        'jam',
-        'tanggal_kembali',
-        'jam_kembali',
+        'id_kamar',
+        'tanggal_masuk',
+        'jam_masuk',
+        'tanggal_keluar',
+        'jam_keluar',
     ];
 
     protected bool $allowEmptyInserts = false;
@@ -51,8 +51,21 @@ class PeminjamanStatusRJModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
+
     public function getPasienById($id) {
         $query = $this->db->table('pasien')
+                ->where('id', $id)
+                ->get()
+                ->getResultArray();
+        if (count($query) >= 1) {
+            return $query[0];
+        } else {
+            return [];
+        }
+    }
+
+    public function getKamarById($id) {
+        $query = $this->db->table('master_kamar')
                 ->where('id', $id)
                 ->get()
                 ->getResultArray();

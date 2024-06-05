@@ -219,6 +219,14 @@
                                     </a>
                                 </li>
                             </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="<?= base_url('Laporan/PeminjamanStatusRI') ?>"
+                                        class="nav-link <?= ($name == 'peminjaman_status_ri') ? 'active' : '' ?>">
+                                        <p>Peminjaman Status (RI)</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
 
                         <li class="nav-header">SETTINGS</li>
