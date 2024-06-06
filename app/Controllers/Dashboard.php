@@ -14,6 +14,8 @@ use App\Models\DataMaster\MasterSupplierModel;
 use App\Models\DataMaster\MasterObatModel;
 use App\Models\DataMaster\MasterKamarModel;
 use App\Models\PasienModel;
+use App\Models\RawatInapModel;
+use App\Models\RawatJalanModel;
 
 class Dashboard extends BaseController
 {
@@ -29,7 +31,9 @@ class Dashboard extends BaseController
         $this->ModelSupplier = new MasterSupplierModel();
         $this->ModelObat = new MasterObatModel();
         $this->ModelKamar = new MasterKamarModel();
-        $this->MdoelPasien = new PasienModel();
+        $this->ModelPasien = new PasienModel();
+        $this->ModelRawatInap = new RawatInapModel();
+        $this->ModelRawatJalan = new RawatJalanModel();
     }
 
     public function index()
@@ -38,7 +42,9 @@ class Dashboard extends BaseController
             'title' => 'Dashboard',
             'name' => 'dashboard',
             'dataDokter' => $this->ModelDokter->findAll(),
-            'dataPasien' => $this->MdoelPasien->findAll(),
+            'dataPasien' => $this->ModelPasien->findAll(),
+            'jlm_rawat_inap' => $this->ModelRawatInap->jumlahRawatInap(),
+            'jlm_rawat_jalan' => $this->ModelRawatJalan->jumlahRawatJalanHarian(),
         ];
         return view('Dashboard/index', $data);
     }

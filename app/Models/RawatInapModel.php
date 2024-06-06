@@ -111,4 +111,15 @@ class RawatInapModel extends Model
             return [];
         }
     }
+
+    public function jumlahRawatInap() {
+        $query = $this->where('tgl_keluar', null)
+                ->get()
+                ->getResultArray();
+        if (count($query) >= 1) {
+            return count($query);
+        } else {
+            return 0;
+        }
+    }
 }

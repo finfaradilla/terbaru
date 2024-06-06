@@ -21,6 +21,7 @@ class RawatJalanModel extends Model
         'id_poli',
         'id_dokter',
         'no_pendaftaran',
+        'time',
     ];
 
     protected bool $allowEmptyInserts = false;
@@ -101,6 +102,17 @@ class RawatJalanModel extends Model
             return $query[0];
         } else {
             return [];
+        }
+    }
+
+    public function jumlahRawatJalanHarian() {
+        $query = $this->where('DATE(tanggal)', date('Y-m-d'))
+                ->get()
+                ->getResultArray();
+        if (count($query) >= 1) {
+            return count($query);
+        } else {
+            return 0;
         }
     }
 }
