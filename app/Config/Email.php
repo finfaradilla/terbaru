@@ -28,17 +28,20 @@ class Email extends BaseConfig
     /**
      * SMTP Server Hostname
      */
-    public string $SMTPHost = 'smtp.gmail.com';
+    public string $SMTPHost = 'e-klinik.rozirwobari.my.id';
+    // public string $SMTPHost = 'smtp.gmail.com';
 
     /**
      * SMTP Username
      */
-    public string $SMTPUser = 'untungharyadi897@gmail.com';
+    public string $SMTPUser = 'reset-password@e-klinik.rozirwobari.my.id';
+    // public string $SMTPUser = 'untungharyadi897@gmail.com';
 
     /**
      * SMTP Password
      */
-    public string $SMTPPass = 'ndml bwus coqv fnnm';
+    public string $SMTPPass = '@rozir123';
+    // public string $SMTPPass = 'ndml bwus coqv fnnm';
 
     /**
      * SMTP Port

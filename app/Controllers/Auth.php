@@ -173,11 +173,17 @@ class Auth extends BaseController
         }
         $token = bin2hex(random_bytes(50));
         $this->AuthModel->update($user['id'], ['reset_token' => $token, 'reset_expiry' => Time::now()->addHours(1)]);
-        $this->sendResetEmail($email, $token);
-        return redirect()->back()->with('validation', [
-            'type' => 'success',
-            'pesan' => 'Reset Password Berhasil Dikirim Ke Email <strong>'.$email.'</strong>',
-        ]);
+        if ($this->sendResetEmail($email, $token)) {
+            return redirect()->back()->with('validation', [
+                'type' => 'success',
+                'pesan' => 'Reset Password Berhasil Dikirim Ke Email <strong>'.$email.'</strong>',
+            ]);
+        } else {
+            return redirect()->back()->with('validation', [
+                'type' => 'danger',
+                'pesan' => 'Reset Password Gagal Dikirim',
+            ]);
+        }
     }
 
     private function sendResetEmail($email, $token)
@@ -187,7 +193,7 @@ class Auth extends BaseController
         $emailService->setFrom('no-reply@e-klinik.com', 'E-Klinik');
         $emailService->setSubject('Password Reset Request');
         $emailService->setMessage(view('Auth/email_forgot_password', ['token' => $token]));
-        $emailService->send();
+        return $emailService->send();
     }
     
     public function reset_password($token)
