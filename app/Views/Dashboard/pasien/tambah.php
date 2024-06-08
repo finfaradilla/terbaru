@@ -126,21 +126,21 @@
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="alamat" class="form-label">Alamat</label>
-                                                    <textarea name="alamat" id="alamat" class="form-control <?= session('errors.alamat') ? 'is-invalid' : '' ?>"><?= old('no_ktp') ?></textarea>
+                                                    <textarea name="alamat" id="alamat" class="form-control <?= session('errors.alamat') ? 'is-invalid' : '' ?>"><?= old('alamat') ?></textarea>
                                                     <div class="invalid-feedback">
                                                         <?= session('errors.alamat') ?>
                                                     </div>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="no_tlp" class="form-label">No Telp</label>
-                                                    <input type="text" class='form-control <?= session('errors.no_tlp') ? 'is-invalid' : '' ?>' name="no_tlp" id="no_tlp" value="<?= old('no_ktp') ?>">
+                                                    <input type="text" class='form-control <?= session('errors.no_tlp') ? 'is-invalid' : '' ?>' name="no_tlp" id="no_tlp" value="<?= old('no_tlp') ?>">
                                                     <div class="invalid-feedback">
                                                         <?= session('errors.no_tlp') ?>
                                                     </div>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="pekerjaan" class="form-label">Pekerjaan</label>
-                                                    <input type="text" class='form-control <?= session('errors.pekerjaan') ? 'is-invalid' : '' ?>' name="pekerjaan" id="pekerjaan" value="<?= old('no_ktp') ?>">
+                                                    <input type="text" class='form-control <?= session('errors.pekerjaan') ? 'is-invalid' : '' ?>' name="pekerjaan" id="pekerjaan" value="<?= old('pekerjaan') ?>">
                                                     <div class="invalid-feedback">
                                                         <?= session('errors.pekerjaan') ?>
                                                     </div>

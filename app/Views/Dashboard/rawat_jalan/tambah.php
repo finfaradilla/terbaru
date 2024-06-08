@@ -130,13 +130,9 @@
                                                     <label for="dokter" class="form-label">Dokter</label>
                                                     <select name="dokter" id="dokter" class="form-control <?= session('errors.dokter') ? 'is-invalid' : '' ?>">
                                                         <option value="">Pilih Dokter</option>
-                                                        <?php
-                                                            foreach ($data_dokter as $key => $value) {
-                                                        ?>
+                                                        <?php foreach ($data_dokter as $key => $value) { ?>
                                                             <option value="<?= $value['id'] ?>"><?= $value['nama'] ?></option>
-                                                        <?php
-                                                            }
-                                                        ?>
+                                                        <?php } ?>
                                                     </select>
                                                     <div class="invalid-feedback">
                                                         <?= session('errors.dokter') ?>
@@ -157,4 +153,17 @@
         </div>
     </div>
 </main>
+
+<script>
+        $(document).ready(function() {
+            $('#dokter').select2({
+                placeholder: "Pilih Dokter",
+                allowClear: true
+            });
+            $('#pasien').select2({
+                placeholder: "Nama Pasien | No. RM",
+                allowClear: true
+            });
+        });
+</script>
 <?= $this->endSection() ?>

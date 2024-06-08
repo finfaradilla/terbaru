@@ -140,4 +140,20 @@
         </div>
     </div>
 </main>
+<script>
+        $(document).ready(function() {
+            $('#dokter').select2({
+                placeholder: "Pilih Dokter",
+                allowClear: true
+            });
+            $('#pasien').select2({
+                placeholder: "Nama Pasien | No. RM",
+                allowClear: true
+            });
+            $('#kamar').select2({
+                placeholder: "Nama Pasien | No. RM",
+                allowClear: true
+            });
+        });
+</script>
 <?= $this->endSection() ?>

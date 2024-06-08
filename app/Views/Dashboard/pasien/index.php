@@ -57,9 +57,16 @@ function tanggal($tanggal) {
                 <div class="col-md">
                     <div class="card">
                         <div class="card-header">
-                            <a href="<?= base_url('/Pasien/tambah') ?>" class="btn btn-primary">
-                                <i class="fa-solid fa-folder-plus"></i>
-                            </a>
+                            <div class="row">
+                                <div class="col-sm">
+                                    <a href="<?= base_url('/Pasien/tambah') ?>" class="btn btn-primary">
+                                        <i class="fa-solid fa-folder-plus"></i>
+                                    </a>
+                                </div>
+                                <div class="col-sm-2 pt-1">
+                                    <input type="text" id="searchBar" class="form-control mb-3" onkeyup="searchTable()" placeholder="Cari Pasien...">
+                                </div>
+                            </div>
                         </div>
 
                         <div class="container py-3">
@@ -103,13 +110,14 @@ function tanggal($tanggal) {
                                         <th>Nama Pasien</th>
                                         <th>Jenis Kelamin</th>
                                         <th>Tanggal Lahir</th>
+                                        <th>Tempat Lahir</th>
                                         <th>Alamat</th>
                                         <th>No Telp</th>
                                         <th>Pekerjaan</th>
                                         <th style="width: 10%">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="dataTable">
                                     <?php
                                         if (!empty($data_pasien)) {
                                             $no = 1;
@@ -123,18 +131,22 @@ function tanggal($tanggal) {
                                             </div>
                                         </td>
                                         <td><?= $value['no_rm'] ?></td>
-                                        <td><?= ($value['bpjs'] != null) ? "<span class='badge text-bg-success'>BPJS: ".substr($value['bpjs'], 0, 5).'</span>' : "<span class='badge text-bg-primary'>Umum</span>" ?></td>
+                                        <td><?= ($value['bpjs'] != null) ? "<span class='badge text-bg-success'>BPJS: ".substr($value['bpjs'], 0, 5).'</span>' : "<span class='badge text-bg-primary'>Umum</span>" ?>
+                                        </td>
                                         <td><?= $value['nama'] ?></td>
                                         <td><?= $value['jenis_kelamin'] ?></td>
                                         <td><?= $value['tgl_lahir'] ?></td>
+                                        <td><?= $value['tempat_lahir'] ?></td>
                                         <td><?= $value['alamat'] ?></td>
                                         <td><?= $value['no_tlp'] ?></td>
                                         <td><?= $value['pekerjaan'] ?></td>
                                         <td>
-                                            <a href="<?= base_url('Pasien/edit/'.$value['id']) ?>" class="btn btn-warning">
+                                            <a href="<?= base_url('Pasien/edit/'.$value['id']) ?>"
+                                                class="btn btn-warning">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </a>
-                                            <button onclick="deletePasien('<?= $value['id'] ?>')" class="btn btn-danger">
+                                            <button onclick="deletePasien('<?= $value['id'] ?>')"
+                                                class="btn btn-danger">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
                                         </td>
@@ -162,52 +174,76 @@ function tanggal($tanggal) {
 </main>
 
 <script>
-    function deletePasien(id) {
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: "btn btn-success",
-                cancelButton: "btn btn-danger"
-            },
-            buttonsStyling: false
-        });
-        swalWithBootstrapButtons.fire({
-            title: "Apakah Yakin?",
-            text: "Apkah Kamu Yakin Ingin Menghapus Data " + id,
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonText: "Yakin",
-            cancelButtonText: "Tidak",
-            reverseButtons: true
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: '<?= base_url('Pasien/delete') ?>',
-                    type: 'POST',
-                    data: {
-                        kode: id,
-                    },
-                    success: function(response) {
-                        window.location.reload();
-                    },
-                    error: function(xhr, status, error) {
-                        swalWithBootstrapButtons.fire({
-                            title: "Dibatalkan",
-                            text: "Pasien " + id + ' Gagal Dihapus',
-                            icon: "error"
-                        });
-                    }
-                });
-            } else if (
-                /* Read more about handling dismissals below */
-                result.dismiss === Swal.DismissReason.cancel
-            ) {
-                swalWithBootstrapButtons.fire({
-                    title: "Dibatalkan",
-                    text: "Pasien " + id + ' Gagal Dihapus',
-                    icon: "error"
-                });
+function deletePasien(id) {
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: "btn btn-success",
+            cancelButton: "btn btn-danger"
+        },
+        buttonsStyling: false
+    });
+    swalWithBootstrapButtons.fire({
+        title: "Apakah Yakin?",
+        text: "Apkah Kamu Yakin Ingin Menghapus Data " + id,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yakin",
+        cancelButtonText: "Tidak",
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: '<?= base_url('Pasien/delete') ?>',
+                type: 'POST',
+                data: {
+                    kode: id,
+                },
+                success: function(response) {
+                    window.location.reload();
+                },
+                error: function(xhr, status, error) {
+                    swalWithBootstrapButtons.fire({
+                        title: "Dibatalkan",
+                        text: "Pasien " + id + ' Gagal Dihapus',
+                        icon: "error"
+                    });
+                }
+            });
+        } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            swalWithBootstrapButtons.fire({
+                title: "Dibatalkan",
+                text: "Pasien " + id + ' Gagal Dihapus',
+                icon: "error"
+            });
+        }
+    });
+}
+</script>
+
+<script>
+function searchTable() {
+    // Declare variables
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("searchBar");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("dataTable");
+    tr = table.getElementsByTagName("tr");
+
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[4]; // Column index for "Nama Pasien"
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
             }
-        });
+        }
     }
+}
 </script>
 <?= $this->endSection() ?>

@@ -121,13 +121,14 @@ class Pasien extends BaseController
         if(!$valid) {
             return redirect()->back()->withInput()->with('errors', $this->Validation->getErrors());
         }
+        $no_rm = random_int(999, 999999);
         $data = [
             'no_ktp' => $this->request->getVar('no_ktp'),
             'nama' => $this->request->getVar('nama'),
             'gol_darah' => $this->request->getVar('gol_darah'),
             'status' => $this->request->getVar('status'),
             'bpjs' => $this->request->getVar('bpjs'),
-            'no_rm' => random_int(999, 999999),
+            'no_rm' => $no_rm,
             'image' => $image,
             'status' => $this->request->getVar('status'),
             'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
@@ -138,6 +139,15 @@ class Pasien extends BaseController
             'tempat_lahir' => $this->request->getVar('tmpt_lahir'),
         ];
         $this->Model->save($data);
+        $getData = $this->Model->where('no_rm', $no_rm)->first();
+        if ($getData) {
+            $getNo_rm = str_pad($getData['id'], 6, '0', STR_PAD_LEFT);
+            $dataRM = [
+                'no_rm' => $getNo_rm,
+            ];
+            $updateRM = $this->Model->where('no_rm', $getData['no_rm']);
+            $updateRM->update($getData['id'], $dataRM);
+        };
         return redirect()->to('Pasien/index')->with('validation', [
             'type' => 'success',
             'pesan' => 'Data <strong>'.$this->request->getVar('nama').'</strong> Berhasil Ditambahkan'
