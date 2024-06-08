@@ -222,7 +222,7 @@
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="<?= base_url('Laporan/PeminjamanStatusRI') ?>"
+                                    <a href="<?= base_url('Laporan/PeminjamanstatusRI') ?>"
                                         class="nav-link <?= ($name == 'peminjaman_status_ri') ? 'active' : '' ?>">
                                         <p>Peminjaman Status (RI)</p>
                                     </a>
