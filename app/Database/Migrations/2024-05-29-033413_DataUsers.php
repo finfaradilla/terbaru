@@ -54,7 +54,7 @@ class DataUsers extends Migration
             ],
             'no_hp' => [
                 'type' => 'INT',
-                'constraint' => 11,
+                'constraint' => 15,
                 'null' => true,
             ],
         ]);

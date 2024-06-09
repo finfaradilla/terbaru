@@ -57,7 +57,7 @@
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="no_hp" class="form-label">No HP</label>
-                                                    <input type="text" class="form-control <?= session('errors.no_hp') ? 'is-invalid' : '' ?>" name="no_hp" id="no_hp" value="<?= old('no_hp') ?>">
+                                                    <input type="number" class="form-control <?= session('errors.no_hp') ? 'is-invalid' : '' ?>" name="no_hp" id="no_hp" value="<?= old('no_hp') ?>">
                                                     <div class="invalid-feedback">
                                                         <?= session('errors.no_hp') ?>
                                                     </div>

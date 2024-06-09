@@ -27,9 +27,16 @@
                 <div class="col-md">
                     <div class="card">
                         <div class="card-header">
-                            <a href="<?= base_url('Laporan/PeminjamanStatusRJ/exportCSV') ?>" class="btn btn-success">
-                                <i class="fa-solid fa-file-csv" style="padding-right: 5px"></i> Export CSV
-                            </a>
+                            <div class="row">
+                                <div class="col-sm">
+                                    <a href="<?= base_url('Laporan/PeminjamanStatusRJ/exportCSV') ?>" class="btn btn-success">
+                                        <i class="fa-solid fa-file-csv" style="padding-right: 5px"></i> Export CSV
+                                    </a>
+                                </div>
+                                <div class="col-sm-2 pt-1">
+                                    <input type="date" id="dateFilter" class="form-control me-2" onchange="filterTableByDate()" placeholder="Filter by Tanggal Masuk">
+                                </div>
+                            </div>
                         </div>
 
                         <div class="container py-3">
@@ -76,7 +83,7 @@
                                         <th>Tgl & Jam Kembali</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="dataTable">
                                     <?php
                                         if (!empty($data)) {
                                             $no = 1;
@@ -140,4 +147,28 @@
         </div>
     </div>
 </main>
+
+<script>
+    function filterTableByDate() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("dateFilter");
+        filter = input.value;
+        table = document.getElementById("dataTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the filter query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[6]; // Column index for "Tanggal Masuk"
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.includes(filter)) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }       
+        }
+    }
+</script>
 <?= $this->endSection() ?>

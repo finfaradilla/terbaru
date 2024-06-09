@@ -27,7 +27,7 @@
                 <div class="col-md">
                     <div class="card">
                         <div class="card-header">
-                        <div class="row">
+                            <div class="row">
                                 <div class="col-sm">
                                     <a href="<?= base_url('Laporan/PeminjamanstatusRI/exportCSV') ?>" class="btn btn-success">
                                         <i class="fa-solid fa-file-csv" style="padding-right: 5px"></i> Export CSV
@@ -124,10 +124,8 @@
                                             } else {
                                         ?>
                                         <td>
-                                            <div class="text-center" style="color: red;">
-                                                <i class="fa-solid fa-circle-xmark"></i>
-                                            </div>
-                                            Belum Pulang
+                                            <p>Belum Pulang</p>
+                                            <button onclick="pulangkan('<?= $value['data_laporan']['id'] ?>', '<?= $value['data_pasien']['nama'] ?>')" class="btn btn-primary">Sudah Kembali</button>
                                         </td>
                                         <?php
                                             }
@@ -176,6 +174,53 @@
                 }
             }       
         }
+    }
+
+    function pulangkan(id, nama) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: "btn btn-success",
+                cancelButton: "btn btn-danger"
+            },
+            buttonsStyling: false
+        });
+        swalWithBootstrapButtons.fire({
+            title: "Apakah Yakin?",
+            text: "Apkah Kamu Yakin Ingin Menghapus Data " + nama,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yakin",
+            cancelButtonText: "Tidak",
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '<?= base_url('RawatInap/pulangkan') ?>',
+                    type: 'POST',
+                    data: {
+                        kode: id,
+                    },
+                    success: function(response) {
+                        window.location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        swalWithBootstrapButtons.fire({
+                            title: "Dibatalkan",
+                            text: "No Pendafataran " + nama + ' Gagal Pulangkan',
+                            icon: "error"
+                        });
+                    }
+                });
+            } else if (
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire({
+                    title: "Dibatalkan",
+                    text: "No Pendafataran " + nama + ' Gagal Dihapus',
+                    icon: "error"
+                });
+            }
+        });
     }
 </script>
 <?= $this->endSection() ?>
