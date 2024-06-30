@@ -85,6 +85,7 @@
                                                     <label for="gol_darah" class="form-label">Golongan Darah</label>
                                                     <select name="gol_darah" id="gol_darah" class="form-control <?= session('errors.gol_darah') ? 'is-invalid' : '' ?>">
                                                         <option value="">Pilih Golongan Darah</option>
+                                                        <option value="Tidak Diketahui" <?= ($data_pasien['gol_darah'] == 'Tidak Diketahui') ? 'selected' : '' ?>>Tidak Diketahui</option>
                                                         <option value="A" <?= ($data_pasien['gol_darah'] == 'A' ? 'selected' : '') ?>>A</option>
                                                         <option value="B" <?= ($data_pasien['gol_darah'] == 'B' ? 'selected' : '') ?>>B</option>
                                                         <option value="AB" <?= ($data_pasien['gol_darah'] == 'AB' ? 'selected' : '') ?>>AB</option>
@@ -132,6 +133,42 @@
                                                     </div>
                                                 </div>
                                                 <div class="mb-3">
+                                                    <label for="provinsi" class="form-label">Provinsi</label>
+                                                    <select id="provinsi" name="provinsi" class="form-control <?= session('errors.provinsi') ? 'is-invalid' : '' ?>">
+                                                        <option value="">-- Pilih Nama Propinsi --</option>
+                                                    </select>
+                                                    <div class="invalid-feedback">
+                                                        <?= session('errors.provinsi') ?>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="kota" class="form-label">Kota</label>
+                                                    <select id="kota" name="kota" class="form-control <?= session('errors.kota') ? 'is-invalid' : '' ?>">
+                                                        <option value="">-- Pilih Provinsi Terlebih Dahulu --</option>
+                                                    </select>
+                                                    <div class="invalid-feedback">
+                                                        <?= session('errors.kota') ?>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="kecamatan" class="form-label">Kecamatan</label>
+                                                    <select id="kecamatan" name="kecamatan" class="form-control <?= session('errors.kecamatan') ? 'is-invalid' : '' ?>">
+                                                        <option value="">-- Pilih Nama Kecamatan --</option>
+                                                    </select>
+                                                    <div class="invalid-feedback">
+                                                        <?= session('errors.kecamatan') ?>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="kelurahan" class="form-label">Kelurahan</label>
+                                                    <select id="kelurahan" name="kelurahan" class="form-control <?= session('errors.kelurahan') ? 'is-invalid' : '' ?>">
+                                                        <option value="">-- Pilih Nama Kelurahan --</option>
+                                                    </select>
+                                                    <div class="invalid-feedback">
+                                                        <?= session('errors.kelurahan') ?>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3">
                                                     <label for="alamat" class="form-label">Alamat</label>
                                                     <textarea name="alamat" id="alamat" class="form-control <?= session('errors.alamat') ? 'is-invalid' : '' ?>"><?= $data_pasien['alamat'] ?></textarea>
                                                     <div class="invalid-feedback">
@@ -168,6 +205,69 @@
     </div>
 </main>
 <script>
+    fetch(`https://kanglerian.github.io/api-wilayah-indonesia/api/provinces.json`)
+    .then(response => response.json())
+    .then(provinces => {
+        var data = provinces;
+        var option = `<option value="">-- Pilih Nama Provinsi --</option>`;
+        data.forEach(element => {
+            var selected = ('<?= $data_pasien['provinsi'] ?>' == element.name) ? `selected` : '';
+            console.log("Hasil : ", selected);
+            option += `<option data-reg="${element.id}" value="${element.name}" ${selected}>${element.name}</option>`
+        });
+        document.getElementById('provinsi').innerHTML = option;
+    });
+
+    const pilihKota = document.getElementById('provinsi');
+    pilihKota.addEventListener('change', (element) => {
+        var provinsiIndex = element.target.options[element.target.selectedIndex].dataset.reg;
+        fetch(`https://kanglerian.github.io/api-wilayah-indonesia/api/regencies/${provinsiIndex}.json`)
+        .then(response => response.json())
+        .then(kota => {
+            var data = kota;
+            var option = `<option value="">-- Pilih Nama Kota --</option>`;
+            data.forEach(element => {
+                var selected = ('<?= $data_pasien['kota'] ?>' == element.name) ? `${element.name}` : '';
+                option += `<option data-reg="${element.id}" value="${element.name}" ${selected}>${element.name}</option>`
+            });
+            document.getElementById('kota').innerHTML = option;
+        });
+    })
+
+    const pilihKecamatan = document.getElementById('kota');
+    pilihKecamatan.addEventListener('change', (element) => {
+        var kotaIndex = element.target.options[element.target.selectedIndex].dataset.reg;
+        fetch(`https://kanglerian.github.io/api-wilayah-indonesia/api/districts/${kotaIndex}.json`)
+        .then(response => response.json())
+        .then(kecamatan => {
+            var data = kecamatan;
+            var option = `<option value="">-- Pilih Nama Kecamatan --</option>`;
+            data.forEach(element => {
+                var selected = ('<?= $data_pasien['kecamatan'] ?>' == element.name) ? `${element.name}` : '';
+                option += `<option data-reg="${element.id}" value="${element.name}" ${selected}>${element.name}</option>`
+            });
+            document.getElementById('kecamatan').innerHTML = option;
+        });
+    })
+
+    const pilihKelurahan = document.getElementById('kecamatan');
+    pilihKelurahan.addEventListener('change', (element) => {
+        var kecamatanIndex = element.target.options[element.target.selectedIndex].dataset.reg;
+        fetch(`https://kanglerian.github.io/api-wilayah-indonesia/api/villages/${kecamatanIndex}.json`)
+        .then(response => response.json())
+        .then(kecamatan => {
+            var data = kecamatan;
+            var option = `<option value="">-- Pilih Kelurahan --</option>`;
+            data.forEach(element => {
+                var selected = ('<?= $data_pasien['kelurahan'] ?>' == element.name) ? `${element.name}` : '';
+                option += `<option data-reg="${element.id}" value="${element.name}" ${selected}>${element.name}</option>`
+            });
+            document.getElementById('kelurahan').innerHTML = option;
+        });
+    })
+
+
+
     document.getElementById('image').addEventListener('change', function(event) {
     const file = event.target.files[0];
     if (file) {

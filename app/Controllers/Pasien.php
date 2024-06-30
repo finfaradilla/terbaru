@@ -68,6 +68,30 @@ class Pasien extends BaseController
                     'required' => 'Tempat Lahir Wajib Diisi.',
                 ]
             ],
+            'provinsi' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Provinsi Wajib Diisi.',
+                ]
+            ],
+            'kota' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kota Wajib Diisi.',
+                ]
+            ],
+            'kecamatan' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kecamatan Wajib Diisi.',
+                ]
+            ],
+            'kelurahan' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kelurahan Wajib Diisi.',
+                ]
+            ],
             'alamat' => [
                 'rules' => 'required',
                 'errors' => [
@@ -133,6 +157,10 @@ class Pasien extends BaseController
             'status' => $this->request->getVar('status'),
             'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
             'tgl_lahir' => $this->request->getVar('tgl_lahir'),
+            'provinsi' => $this->request->getVar('provinsi'),
+            'kota' => $this->request->getVar('kota'),
+            'kecamatan' => $this->request->getVar('kecamatan'),
+            'kelurahan' => $this->request->getVar('kelurahan'),
             'alamat' => $this->request->getVar('alamat'),
             'no_tlp' => $this->request->getVar('no_tlp'),
             'pekerjaan' => $this->request->getVar('pekerjaan'),
@@ -185,6 +213,30 @@ class Pasien extends BaseController
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'Tempat Lahir Wajib Diisi.',
+                ]
+            ],
+            'provinsi' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Provinsi Wajib Diisi.',
+                ]
+            ],
+            'kota' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kota Wajib Diisi.',
+                ]
+            ],
+            'kecamatan' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kecamatan Wajib Diisi.',
+                ]
+            ],
+            'kelurahan' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kelurahan Wajib Diisi.',
                 ]
             ],
             'alamat' => [
@@ -257,6 +309,10 @@ class Pasien extends BaseController
             'status' => $this->request->getVar('status'),
             'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
             'tgl_lahir' => $this->request->getVar('tgl_lahir'),
+            'provinsi' => $this->request->getVar('provinsi'),
+            'kota' => $this->request->getVar('kota'),
+            'kecamatan' => $this->request->getVar('kecamatan'),
+            'kelurahan' => $this->request->getVar('kelurahan'),
             'alamat' => $this->request->getVar('alamat'),
             'no_tlp' => $this->request->getVar('no_tlp'),
             'pekerjaan' => $this->request->getVar('pekerjaan'),

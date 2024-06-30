@@ -62,6 +62,26 @@ class DataPasien extends Migration
                 'type' => 'DATE',
                 'null' => true,
             ],
+            'provinsi' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 250,
+                'null'       => true,
+            ],
+            'kota' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 250,
+                'null'       => true,
+            ],
+            'kecamatan' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 250,
+                'null'       => true,
+            ],
+            'kelurahan' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 250,
+                'null'       => true,
+            ],
             'alamat' => [
                 'type' => 'MEDIUMTEXT',
                 'null' => true,
