@@ -48,7 +48,7 @@
                                                         <?php
                                                             foreach ($data_pasien as $key => $value) {
                                                         ?>
-                                                            <option value="<?= $value['id'] ?>"><?= $value['nama'] ?> | <?= $value['no_rm'] ?></option>
+                                                            <option value="<?= $value['id'] ?>" <?= isset($id_pasien) ? ($id_pasien == $value['id'] ? 'selected' : '') : '' ?>><?= $value['nama'] ?> | <?= $value['no_rm'] ?></option>
                                                         <?php
                                                             }
                                                         ?>
@@ -61,7 +61,7 @@
                                                     <label for="tanggal" class="form-label">Tanggal Masuk</label>
                                                     <input type="date"
                                                         class="form-control <?= session('errors.tanggal') ? 'is-invalid' : '' ?>"
-                                                        name="tanggal" id="tanggal" value="<?= old('tanggal') ?>">
+                                                        name="tanggal" id="tanggal" value="<?= (old('tanggal') ? old('tanggal') : date("Y-m-d")) ?>">
                                                     <div class="invalid-feedback">
                                                         <?= session('errors.tanggal') ?>
                                                     </div>

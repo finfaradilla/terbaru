@@ -50,6 +50,23 @@ class RawatInap extends BaseController
         return view('Dashboard/rawat_inap/tambah', $data);
     }
 
+    public function tambahRI($id)
+    {
+        if (!isset($id)) {
+            return redirect()->to('RawatInap/tambah');
+        }
+        $data = [
+            'title' => 'Tambah Rawat Inap',
+            'name' => 'rawat_inap',
+            'data_pasien' => $this->Model->getAllPasien(),
+            'data_dokter' => $this->Model->getAllDokter(),
+            'data_poli' => $this->Model->getAllPoli(),
+            'data_kamar' => $this->Model->getAllKamar(),
+            'id_pasien' => $id,
+        ];
+        return view('Dashboard/rawat_inap/tambah', $data);
+    }
+
     public function simpan()
     {
         $valid = $this->validate([

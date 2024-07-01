@@ -142,13 +142,21 @@ function tanggal($tanggal) {
                                         <td><?= $value['pekerjaan'] ?></td>
                                         <td>
                                             <a href="<?= base_url('Pasien/edit/'.$value['id']) ?>"
-                                                class="btn btn-warning">
+                                                class="btn btn-warning m-1">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </a>
                                             <button onclick="deletePasien('<?= $value['id'] ?>')"
-                                                class="btn btn-danger">
+                                                class="btn btn-danger m-1">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
+                                            <a href="<?= base_url('RawatInap/tambahRI/'.$value['id']) ?>"
+                                                class="btn btn-primary m-1">
+                                                +RI
+                                            </a>
+                                            <a href="<?= base_url('RawatJalan/tambahRJ/'.$value['id']) ?>"
+                                                class="btn btn-primary m-1">
+                                                +RJ
+                                            </a>
                                         </td>
                                     </tr>
                                     <?php

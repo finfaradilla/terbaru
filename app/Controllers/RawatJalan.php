@@ -48,6 +48,22 @@ class RawatJalan extends BaseController
         return view('Dashboard/rawat_jalan/tambah', $data);
     }
 
+    public function tambahRJ($id)
+    {
+        if (!isset($id)) {
+            return redirect()->to('RawatJalan/tambah');
+        }
+        $data = [
+            'title' => 'Tambah Rawat Jalan',
+            'name' => 'rawat_jalan',
+            'data_pasien' => $this->Model->getAllPasien(),
+            'data_dokter' => $this->Model->getAllDokter(),
+            'data_poli' => $this->Model->getAllPoli(),
+            'id_pasien' => $id,
+        ];
+        return view('Dashboard/rawat_jalan/tambah', $data);
+    }
+
     public function simpan()
     {
         $valid = $this->validate([
