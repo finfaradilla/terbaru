@@ -74,7 +74,7 @@
                                 <thead>
                                     <tr class="text-center">
                                         <th style="width: 4%;">No</th>
-                                        <th>Foto</th>
+                                        <!-- <th>Foto</th> -->
                                         <th>No. RM</th>
                                         <th>Nama</th>
                                         <th>Poli</th>
