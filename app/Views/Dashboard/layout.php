@@ -77,9 +77,9 @@
         <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
             <div class="sidebar-brand">
                 <a href="<?= base_url() ?>" class="brand-link">
-                    <img src="<?= base_url('dashboard') ?>/assets/img/AdminLTELogo.png" alt="AdminLTE Logo"
+                    <img src="<?= base_url('uploads/logo/logo.png') ?>" alt="AdminLTE Logo"
                         class="brand-image opacity-75 shadow">
-                    <span class="brand-text fw-light">AdminLTE 4</span>
+                    <span class="brand-text fw-light">Adi Rahayu</span>
                 </a>
             </div>
             <div class="sidebar-wrapper">
