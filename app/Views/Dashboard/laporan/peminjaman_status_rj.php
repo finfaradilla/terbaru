@@ -93,7 +93,7 @@
                                         <td style="width: 4%; text-align: center;"><?= $no++ ?></td>
                                         <!-- <td class="d-flex justify-content-center">
                                             <div class="image-profile-container">
-                                                <img src="<?= base_url($value['data_pasien']['image']) ?>" alt="Profile">
+                                                <img src="" alt="Profile">
                                             </div>
                                         </td> -->
                                         <td><?= $value['data_pasien']['no_rm'] ?></td>
