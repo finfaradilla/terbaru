@@ -179,7 +179,7 @@
                             <a href="<?= base_url('/RawatJalan') ?>"
                                 class="nav-link <?= ($name == 'rawat_jalan') ? 'active' : '' ?>">
                                 <i class="nav-icon fa-regular fa-calendar-check"></i>
-                                <p>Pendaftaran Riwayat Jalan</p>
+                                <p>Pendaftaran Rawat Jalan</p>
                             </a>
                         </li>
                         <!-- <li class="nav-item">
@@ -235,7 +235,7 @@
                             <a href="<?= base_url('ManajemenUser') ?>"
                                 class="nav-link <?= ($name == 'manajemen_user') ? 'active' : '' ?>">
                                 <i class="fa-solid fa-headset"></i>
-                                <p>Pendaftaran Rawat Inap</p>
+                                <p>Management User</p>
                             </a>
                         </li>
                     </ul>

@@ -2,7 +2,10 @@
 
 <?= $this->section('content') ?>
 <div class="login-box">
-    <div class="login-logo"> <a href="<?= base_url() ?>/"><b>Admin</b>LTE</a> </div> <!-- /.login-logo -->
+    <div class="login-logo"> 
+        <img src="<?= base_url('uploads/logo/logo.png') ?>" class="p-3" width="140vh" alt="Logo">
+        <img src="<?= base_url('uploads/logo/text-logo.png') ?>" width="240vh" class="p-3" alt="Logo">
+    </div>
     <div class="card">
         <div class="card-body login-card-body">
             <?php if (!empty(session()->getFlashdata('validation')['type'])): ?>
@@ -35,14 +38,14 @@
                     </div>
                 </div>
             </form>
-            <p class="mb-1">
+            <!-- <p class="mb-1">
                 <a href="<?= base_url('Auth/forgot_password') ?>">Lupa Password</a>
             </p>
             <p class="mb-0">
                 <a href="<?= base_url('Auth/register') ?>" class="text-center">
                     Daftar Akun
                 </a>
-            </p>
+            </p> -->
         </div>
     </div>
 </div>

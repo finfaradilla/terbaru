@@ -124,23 +124,23 @@ class Pasien extends BaseController
                     'numeric' => 'No Telp Harus Angka'
                 ]
             ],
-            'image' => [
-                'rules' => 'is_image[image]|mime_in[image,image/jpg,image/jpeg,image/gif,image/png,image/webp]|max_size[image,10240]',
-                'errors' => [
-                    'is_image' => 'File hanya Boleh Image',
-                    'mime_in' => 'File Format Hanya Boleh jpg, jpeg, gif, png, webp',
-                    'max_size' => 'Max Ukuran File 10MB',
-                ]
-            ],
+            // 'image' => [
+            //     'rules' => 'is_image[image]|mime_in[image,image/jpg,image/jpeg,image/gif,image/png,image/webp]|max_size[image,10240]',
+            //     'errors' => [
+            //         'is_image' => 'File hanya Boleh Image',
+            //         'mime_in' => 'File Format Hanya Boleh jpg, jpeg, gif, png, webp',
+            //         'max_size' => 'Max Ukuran File 10MB',
+            //     ]
+            // ],
         ]);
         
-        $img = $this->request->getFile('image');
-        $image = "uploads/default/default.png";
-        if ($img->isValid()){
-            $newName = $img->getRandomName();
-            $img->move(FCPATH . 'uploads/img/', $newName);
-            $image = 'uploads/img/'.$newName;
-        };
+        // $img = $this->request->getFile('image');
+        // $image = "uploads/default/default.png";
+        // if ($img->isValid()){
+        //     $newName = $img->getRandomName();
+        //     $img->move(FCPATH . 'uploads/img/', $newName);
+        //     $image = 'uploads/img/'.$newName;
+        // };
 
         if(!$valid) {
             return redirect()->back()->withInput()->with('errors', $this->Validation->getErrors());
@@ -153,7 +153,7 @@ class Pasien extends BaseController
             'status' => $this->request->getVar('status'),
             'bpjs' => $this->request->getVar('bpjs'),
             'no_rm' => $no_rm,
-            'image' => $image,
+            // 'image' => $image,
             'status' => $this->request->getVar('status'),
             'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
             'tgl_lahir' => $this->request->getVar('tgl_lahir'),
@@ -271,15 +271,15 @@ class Pasien extends BaseController
                     'numeric' => 'No Telp Harus Angka'
                 ]
             ],
-            'image' => [
-                'rules' => 'is_image[image]|mime_in[image,image/jpg,image/jpeg,image/gif,image/png,image/webp]|max_size[image,10240]',
-                'errors' => [
-                    'uploaded' => 'File hanya Boleh Image',
-                    'is_image' => 'File hanya Boleh Image',
-                    'mime_in' => 'File Format Hanya Boleh jpg, jpeg, gif, png, webp',
-                    'max_size' => 'Max Ukuran File 10MB',
-                ]
-            ],
+            // 'image' => [
+            //     'rules' => 'is_image[image]|mime_in[image,image/jpg,image/jpeg,image/gif,image/png,image/webp]|max_size[image,10240]',
+            //     'errors' => [
+            //         'uploaded' => 'File hanya Boleh Image',
+            //         'is_image' => 'File hanya Boleh Image',
+            //         'mime_in' => 'File Format Hanya Boleh jpg, jpeg, gif, png, webp',
+            //         'max_size' => 'Max Ukuran File 10MB',
+            //     ]
+            // ],
         ]);
         $id = $this->request->getVar('id_pasien');
         $image_old = $this->request->getVar('image_old');
@@ -305,7 +305,7 @@ class Pasien extends BaseController
             'status' => $this->request->getVar('status'),
             'bpjs' => $this->request->getVar('bpjs'),
             'no_rm' => $this->request->getVar('no_rm'),
-            'image' => $image,
+            // 'image' => $image,
             'status' => $this->request->getVar('status'),
             'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
             'tgl_lahir' => $this->request->getVar('tgl_lahir'),
@@ -344,9 +344,9 @@ class Pasien extends BaseController
     {
         $kode = $this->request->getVar('kode');
         $data_pasien = $this->Model->find($kode);
-        if (file_exists($data_pasien['image'])) {
-            unlink($data_pasien['image']);
-        }
+        // if (file_exists($data_pasien['image'])) {
+        //     unlink($data_pasien['image']);
+        // }
         $response = $this->Model->where('id', $kode)->delete();
         $this->session->setFlashdata('validation', [
             'type' => 'warning',

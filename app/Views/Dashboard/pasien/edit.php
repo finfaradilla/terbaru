@@ -44,7 +44,7 @@
                                             <?= csrf_field() ?>
                                             <div class="card-body">
                                                 <div class="container text-center">
-                                                    <img src="<?= base_url($data_pasien['image']) ?>" alt="Profile" style="width: 20%; height: 20%">
+                                                    <!-- <img src="<?= base_url($data_pasien['image']) ?>" alt="Profile" style="width: 20%; height: 20%"> -->
                                                     <input type="hidden" name="image_old" value="<?= $data_pasien['image'] ?>">
                                                     <input type="hidden" name="no_rm" id="no_rm" value="<?= $data_pasien['no_rm'] ?>">
                                                     <input type="hidden" name="id_pasien" id="id_pasien" value="<?= $data_pasien['id'] ?>">
@@ -120,7 +120,7 @@
                                                         <?= session('errors.tmpt_lahir') ?>
                                                     </div>
                                                 </div>
-                                                <div class="mb-3">
+                                                <!-- <div class="mb-3">
                                                     <label for="image" class="form-label">Foto</label>
                                                     <div class="image-container pb-4" id="show-img">
                                                         <img id="imageDisplay" src="" alt="Gambar Upload">
@@ -131,7 +131,7 @@
                                                     <div class="invalid-feedback">
                                                         <?= session('errors.image') ?>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                                 <div class="mb-3">
                                                     <label for="provinsi" class="form-label">Provinsi</label>
                                                     <select id="provinsi" name="provinsi" class="form-control <?= session('errors.provinsi') ? 'is-invalid' : '' ?>">

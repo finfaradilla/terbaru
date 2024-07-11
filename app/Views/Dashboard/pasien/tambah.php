@@ -116,7 +116,7 @@
                                                         <?= session('errors.tmpt_lahir') ?>
                                                     </div>
                                                 </div>
-                                                <div class="mb-3">
+                                                <!-- <div class="mb-3">
                                                     <label for="image" class="form-label">Foto</label>
                                                     <input type="file"
                                                         class="form-control <?= session('errors.image') ? 'is-invalid' : '' ?>"
@@ -124,7 +124,7 @@
                                                     <div class="invalid-feedback">
                                                         <?= session('errors.image') ?>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                                 <div class="mb-3">
                                                     <label for="provinsi" class="form-label">Provinsi</label>
                                                     <select id="provinsi" name="provinsi" class="form-control <?= session('errors.provinsi') ? 'is-invalid' : '' ?>">

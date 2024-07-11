@@ -151,7 +151,7 @@
                 allowClear: true
             });
             $('#kamar').select2({
-                placeholder: "Nama Pasien | No. RM",
+                placeholder: "Kamar | No. RM",
                 allowClear: true
             });
         });

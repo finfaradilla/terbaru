@@ -104,7 +104,7 @@ function tanggal($tanggal) {
                                 <thead>
                                     <tr class="text-center">
                                         <th style="width: 4%;">No</th>
-                                        <th style="width: 10%">Foto</th>
+                                        <!-- <th style="width: 10%">Foto</th> -->
                                         <th>No RM</th>
                                         <th>BPJS</th>
                                         <th>Nama Pasien</th>
@@ -125,11 +125,11 @@ function tanggal($tanggal) {
                                     ?>
                                     <tr class="align-middle text-center">
                                         <td style="width: 4%; text-align: center;"><?= $no++ ?></td>
-                                        <td class="d-flex justify-content-center">
+                                        <!-- <td class="d-flex justify-content-center">
                                             <div class="image-profile-container">
                                                 <img src="<?= base_url($value['image']) ?>" alt="Profile">
                                             </div>
-                                        </td>
+                                        </td> -->
                                         <td><?= $value['no_rm'] ?></td>
                                         <td><?= ($value['bpjs'] != null) ? "<span class='badge text-bg-success'>BPJS: ".substr($value['bpjs'], 0, 5).'</span>' : "<span class='badge text-bg-primary'>Umum</span>" ?>
                                         </td>
