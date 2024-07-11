@@ -115,7 +115,7 @@ function tanggal($tanggal) {
                                         <td><?= $value['data_rawat_jalan']['no_pendaftaran'] ?></td>
                                         <!-- <td class="d-flex justify-content-center">
                                             <div class="image-profile-container">
-                                                <img src="<?= base_url($value['data_pasien']['image']) ?>" alt="Profile">
+                                                <img src="" alt="Profile">
                                             </div>
                                         </td> -->
                                         <td><?= $value['data_pasien']['no_rm'] ?></td>
