@@ -131,7 +131,7 @@ class Pasien extends BaseController
             'bpjs' => $this->request->getVar('bpjs'),
             'no_rm' => $no_rm,
             // 'image' => $image,
-            'status' => $this->request->getVar('status'),
+            'pendidikan' => $this->request->getVar('pendidikan'),
             'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
             'tgl_lahir' => $this->request->getVar('tgl_lahir'),
             'agama' => $this->request->getVar('agama'),
