@@ -125,7 +125,7 @@
                                         ?>
                                         <td>
                                             <p>Belum Pulang</p>
-                                            <button onclick="pulangkan('<?= $value['data_laporan']['id'] ?>', '<?= $value['data_pasien']['nama'] ?>')" class="btn btn-primary">Sudah Kembali</button>
+                                            <button onclick="pulangkan('<?= $value['data_laporan']['id'] ?>', '<?= $value['data_pasien']['nama'] ?>')" class="btn btn-primary">Pulangkan</button>
                                         </td>
                                         <?php
                                             }
