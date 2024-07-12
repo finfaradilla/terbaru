@@ -10,97 +10,106 @@ class DataPasien extends Migration
     {
         $this->forge->addField([
             'id' => [
-                'type'           => 'INT',
-                'constraint'     => 11,
-                'unsigned'       => true,
+                'type' => 'INT',
+                'constraint' => 11,
+                'unsigned' => true,
                 'auto_increment' => true,
             ],
             'no_ktp' => [
-                'type'       => 'VARCHAR',
+                'type' => 'VARCHAR',
                 'constraint' => 150,
-                'null'       => true,
+                'null' => true,
             ],
             'nama' => [
-                'type'       => 'VARCHAR',
+                'type' => 'VARCHAR',
                 'constraint' => 150,
-                'null'       => true,
+                'null' => true,
             ],
             'gol_darah' => [
-                'type'       => 'VARCHAR',
-                'constraint' => 3,
-                'null'       => true,
+                'type' => 'VARCHAR',
+                'constraint' => 100,
+                'default' => 'Tidak Diketahui',
             ],
             'status' => [
-                'type'       => 'VARCHAR',
+                'type' => 'VARCHAR',
                 'constraint' => 20,
-                'null'       => true,
+                'null' => true,
             ],
             'tempat_lahir' => [
-                'type'       => 'MEDIUMTEXT',
-                'null'       => true,
+                'type' => 'MEDIUMTEXT',
+                'null' => true,
             ],
             'bpjs' => [
-                'type'       => 'VARCHAR',
+                'type' => 'VARCHAR',
                 'constraint' => 100,
-                'null'       => true,
+                'null' => true,
             ],
             'no_rm' => [
-                'type'       => 'VARCHAR',
+                'type' => 'VARCHAR',
                 'constraint' => 100,
-                'null'       => true,
+                'null' => true,
+            ],
+            'agama' => [
+                'type' => 'VARCHAR',
+                'constraint' => 50,
+                'null' => true,
+            ],
+            'pendidikan' => [
+                'type' => 'VARCHAR',
+                'constraint' => 150,
+                'null' => true,
             ],
             'image' => [
-                'type'       => 'MEDIUMTEXT',
-                'default'    => 'https://via.placeholder.com/100',
+                'type' => 'MEDIUMTEXT',
+                'default' => 'https://via.placeholder.com/100',
             ],
             'jenis_kelamin' => [
-                'type'       => 'ENUM',
+                'type' => 'ENUM',
                 'constraint' => ['L', 'P'],
-                'null'       => true,
+                'null' => true,
             ],
             'tgl_lahir' => [
                 'type' => 'DATE',
                 'null' => true,
             ],
             'provinsi' => [
-                'type'       => 'VARCHAR',
+                'type' => 'VARCHAR',
                 'constraint' => 250,
-                'null'       => true,
+                'null' => true,
             ],
             'kota' => [
-                'type'       => 'VARCHAR',
+                'type' => 'VARCHAR',
                 'constraint' => 250,
-                'null'       => true,
+                'null' => true,
             ],
             'kecamatan' => [
-                'type'       => 'VARCHAR',
+                'type' => 'VARCHAR',
                 'constraint' => 250,
-                'null'       => true,
+                'null' => true,
             ],
             'kelurahan' => [
-                'type'       => 'VARCHAR',
+                'type' => 'VARCHAR',
                 'constraint' => 250,
-                'null'       => true,
+                'null' => true,
             ],
             'alamat' => [
                 'type' => 'MEDIUMTEXT',
                 'null' => true,
             ],
             'no_tlp' => [
-                'type'       => 'VARCHAR',
+                'type' => 'VARCHAR',
                 'constraint' => 25,
-                'null'       => true,
+                'null' => true,
             ],
             'pekerjaan' => [
-                'type'       => 'VARCHAR',
+                'type' => 'VARCHAR',
                 'constraint' => 100,
-                'null'       => true,
+                'null' => true,
             ],
         ]);
 
         $this->forge->addKey('id', true);
         $this->forge->addUniqueKey('no_ktp');
-
         $this->forge->createTable('pasien');
     }
 
