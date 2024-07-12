@@ -89,6 +89,50 @@
                                                         <?= session('errors.gol_darah') ?>
                                                     </div>
                                                 </div>
+
+
+
+                                                <div class="mb-3">
+                                                    <label for="agama" class="form-label">Agama</label>
+                                                    <select name="agama" id="agama" class="form-control <?= session('errors.agama') ? 'is-invalid' : '' ?>" onchange="toggleLainLainInput()">
+                                                        <option value="">Pilih Agama</option>
+                                                        <option value="Islam" <?= (old('agama') == 'Islam') ? 'selected' : '' ?>>Islam</option>
+                                                        <option value="Kristen Protestan" <?= (old('agama') == 'Kristen Protestan') ? 'selected' : '' ?>>Kristen Protestan</option>
+                                                        <option value="Katolik" <?= (old('agama') == 'Katolik') ? 'selected' : '' ?>>Katolik</option>
+                                                        <option value="Hindu" <?= (old('agama') == 'Hindu') ? 'selected' : '' ?>>Hindu</option>
+                                                        <option value="Budha" <?= (old('agama') == 'Budha') ? 'selected' : '' ?>>Budha</option>
+                                                        <option value="Konghucu" <?= (old('agama') == 'Konghucu') ? 'selected' : '' ?>>Konghucu</option>
+                                                        <option value="Penghayat" <?= (old('agama') == 'Penghayat') ? 'selected' : '' ?>>Penghayat</option>
+                                                        <option value="Lain-lain" <?= (old('agama') == 'Lain-lain') ? 'selected' : '' ?>>Lain-lain</option>
+                                                    </select>
+                                                    <div class="invalid-feedback">
+                                                        <?= session('errors.agama') ?>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3" id="lain-lain-input" style="display: none;">
+                                                    <label for="agama_lain" class="form-label">Agama Lain</label>
+                                                    <input type="text" class="form-control <?= session('errors.agama_lain') ? 'is-invalid' : '' ?>" name="agama_lain" id="agama_lain" value="<?= old('agama_lain') ?>">
+                                                    <div class="invalid-feedback">
+                                                        <?= session('errors.agama_lain') ?>
+                                                    </div>
+                                                </div>
+                                                <script>
+                                                    function toggleLainLainInput() {
+                                                        var agamaSelect = document.getElementById('agama');
+                                                        var lainLainInput = document.getElementById('lain-lain-input');
+                                                        if (agamaSelect.value === 'Lain-lain') {
+                                                            lainLainInput.style.display = 'block';
+                                                        } else {
+                                                            lainLainInput.style.display = 'none';
+                                                        }
+                                                    }
+                                                    document.addEventListener('DOMContentLoaded', function() {
+                                                        toggleLainLainInput();
+                                                    });
+                                                </script>
+
+
+
                                                 <div class="mb-3">
                                                     <label for="status" class="form-label">Status Pernikahan</label>
                                                     <select name="status" id="status" class="form-control <?= session('errors.status') ? 'is-invalid' : '' ?>">
@@ -180,6 +224,24 @@
                                                     <input type="text" class='form-control <?= session('errors.pekerjaan') ? 'is-invalid' : '' ?>' name="pekerjaan" id="pekerjaan" value="<?= old('pekerjaan') ?>">
                                                     <div class="invalid-feedback">
                                                         <?= session('errors.pekerjaan') ?>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="pendidikan" class="form-label">Pendidikan</label>
+                                                    <select name="pendidikan" id="pendidikan" class="form-control <?= session('errors.pendidikan') ? 'is-invalid' : '' ?>">
+                                                        <option value="">Pilih Pendidikan</option>
+                                                        <option value="Tidak Sekolah" <?= (old('pendidikan') == 'Tidak Sekolah' ? 'selected' : '') ?>>Tidak Sekolah</option>
+                                                        <option value="SD" <?= (old('pendidikan') == 'SD' ? 'selected' : '') ?>>SD</option>
+                                                        <option value="SLTP (sederajat)" <?= (old('pendidikan') == 'SLTP (sederajat)' ? 'selected' : '') ?>>SLTP (sederajat)</option>
+                                                        <option value="SLTA (sederajat)" <?= (old('pendidikan') == 'SLTA (sederajat)' ? 'selected' : '') ?>>SLTA (sederajat)</option>
+                                                        <option value="D1-D3 (sederajat)" <?= (old('pendidikan') == 'D1-D3 (sederajat)' ? 'selected' : '') ?>>D1-D3 (sederajat)</option>
+                                                        <option value="D4" <?= (old('pendidikan') == 'D4' ? 'selected' : '') ?>>D4</option>
+                                                        <option value="S1" <?= (old('pendidikan') == 'S1' ? 'selected' : '') ?>>S1</option>
+                                                        <option value="S2" <?= (old('pendidikan') == 'S2' ? 'selected' : '') ?>>S2</option>
+                                                        <option value="S3" <?= (old('pendidikan') == 'S3' ? 'selected' : '') ?>>S3</option>
+                                                    </select>
+                                                    <div class="invalid-feedback">
+                                                        <?= session('errors.pendidikan') ?>
                                                     </div>
                                                 </div>
                                             </div>

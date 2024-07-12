@@ -24,6 +24,7 @@ class PasienModel extends Model
         'bpjs',
         'no_rm',
         'image',
+        'agama',
         'jenis_kelamin',
         'tgl_lahir',
         'provinsi',
@@ -33,6 +34,7 @@ class PasienModel extends Model
         'alamat',
         'no_tlp',
         'pekerjaan',
+        'pendidikan',
         'tempat_lahir',
     ];
 

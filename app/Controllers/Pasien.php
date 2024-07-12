@@ -50,12 +50,6 @@ class Pasien extends BaseController
                     'required' => 'Jenis Kelamin Wajib Diisi.',
                 ]
             ],
-            'gol_darah' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'Golongan Darah Wajib Diisi.',
-                ]
-            ],
             'tgl_lahir' => [
                 'rules' => 'required',
                 'errors' => [
@@ -98,35 +92,18 @@ class Pasien extends BaseController
                     'required' => 'Alamat Wajib Diisi.',
                 ]
             ],
-            'status' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'Status Wajib Diisi.',
-                ]
-            ],
             'no_ktp' => [
-                'rules' => 'required|numeric|is_unique[pasien.no_ktp]',
+                'rules' => 'required|numeric',
                 'errors' => [
                     'required' => 'No KTP Wajib Diisi.',
                     'numeric' => 'No KTP Harus Angka',
                     'is_unique' => 'No KTP Sudah Terdaftar',
                 ]
             ],
-            'pekerjaan' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'Pekerjaan Wajib Diisi.',
-                ]
-            ],
-            'no_tlp' => [
-                'rules' => 'numeric',
-                'errors' => [
-                    'numeric' => 'No Telp Harus Angka'
-                ]
-            ],
             // 'image' => [
             //     'rules' => 'is_image[image]|mime_in[image,image/jpg,image/jpeg,image/gif,image/png,image/webp]|max_size[image,10240]',
             //     'errors' => [
+            //         'uploaded' => 'File hanya Boleh Image',
             //         'is_image' => 'File hanya Boleh Image',
             //         'mime_in' => 'File Format Hanya Boleh jpg, jpeg, gif, png, webp',
             //         'max_size' => 'Max Ukuran File 10MB',
@@ -157,6 +134,7 @@ class Pasien extends BaseController
             'status' => $this->request->getVar('status'),
             'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
             'tgl_lahir' => $this->request->getVar('tgl_lahir'),
+            'agama' => $this->request->getVar('agama'),
             'provinsi' => $this->request->getVar('provinsi'),
             'kota' => $this->request->getVar('kota'),
             'kecamatan' => $this->request->getVar('kecamatan'),
@@ -188,19 +166,13 @@ class Pasien extends BaseController
             'nama' => [
                 'rules' => 'required',
                 'errors' => [
-                    'required' => 'Keterangan Wajib Diisi.',
+                    'required' => 'Nama Pasien Wajib Diisi.',
                 ]
             ],
             'jenis_kelamin' => [
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'Jenis Kelamin Wajib Diisi.',
-                ]
-            ],
-            'gol_darah' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'Golongan Darah Wajib Diisi.',
                 ]
             ],
             'tgl_lahir' => [
@@ -245,30 +217,12 @@ class Pasien extends BaseController
                     'required' => 'Alamat Wajib Diisi.',
                 ]
             ],
-            'status' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'Status Wajib Diisi.',
-                ]
-            ],
             'no_ktp' => [
                 'rules' => 'required|numeric',
                 'errors' => [
                     'required' => 'No KTP Wajib Diisi.',
                     'numeric' => 'No KTP Harus Angka',
                     'is_unique' => 'No KTP Sudah Terdaftar',
-                ]
-            ],
-            'pekerjaan' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'Pekerjaan Wajib Diisi.',
-                ]
-            ],
-            'no_tlp' => [
-                'rules' => 'numeric',
-                'errors' => [
-                    'numeric' => 'No Telp Harus Angka'
                 ]
             ],
             // 'image' => [
@@ -288,16 +242,16 @@ class Pasien extends BaseController
         if(!$valid) {
             return redirect()->back()->withInput()->with('errors', $this->Validation->getErrors());
         }
-        if ($img->isValid()){
-            $newName = $img->getRandomName();
-            $img->move(FCPATH . 'uploads/img/', $newName);
-            $image = 'uploads/img/'.$newName;
-            if (file_exists($image_old)) {
-                unlink($image_old);
-            }
-        } else {
-            $image = $image_old;
-        }
+        // if ($img->isValid()){
+        //     $newName = $img->getRandomName();
+        //     $img->move(FCPATH . 'uploads/img/', $newName);
+        //     $image = 'uploads/img/'.$newName;
+        //     if (file_exists($image_old)) {
+        //         unlink($image_old);
+        //     }
+        // } else {
+        //     $image = $image_old;
+        // }
         $data = [
             'no_ktp' => $this->request->getVar('no_ktp'),
             'nama' => $this->request->getVar('nama'),
@@ -306,7 +260,7 @@ class Pasien extends BaseController
             'bpjs' => $this->request->getVar('bpjs'),
             'no_rm' => $this->request->getVar('no_rm'),
             // 'image' => $image,
-            'status' => $this->request->getVar('status'),
+            'agama' => $this->request->getVar('agama'),
             'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
             'tgl_lahir' => $this->request->getVar('tgl_lahir'),
             'provinsi' => $this->request->getVar('provinsi'),
@@ -317,6 +271,7 @@ class Pasien extends BaseController
             'no_tlp' => $this->request->getVar('no_tlp'),
             'pekerjaan' => $this->request->getVar('pekerjaan'),
             'tempat_lahir' => $this->request->getVar('tmpt_lahir'),
+            'pendidikan' => $this->request->getVar('pendidikan'),
         ];
         if ($this->Model->update($id, $data)) {
             return redirect()->to('Pasien/index')->with('validation', [

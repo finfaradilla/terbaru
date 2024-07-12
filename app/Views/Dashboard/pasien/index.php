@@ -108,6 +108,8 @@ function tanggal($tanggal) {
                                         <th>No RM</th>
                                         <th>BPJS</th>
                                         <th>Nama Pasien</th>
+                                        <th>Agama</th>
+                                        <th>Pendidikan</th>
                                         <th>Jenis Kelamin</th>
                                         <th>Tanggal Lahir</th>
                                         <th>Tempat Lahir</th>
@@ -134,6 +136,8 @@ function tanggal($tanggal) {
                                         <td><?= ($value['bpjs'] != null) ? "<span class='badge text-bg-success'>BPJS: ".substr($value['bpjs'], 0, 5).'</span>' : "<span class='badge text-bg-primary'>Umum</span>" ?>
                                         </td>
                                         <td><?= $value['nama'] ?></td>
+                                        <td><?= $value['agama'] ?></td>
+                                        <td><?= $value['pendidikan'] ?></td>
                                         <td><?= $value['jenis_kelamin'] ?></td>
                                         <td><?= $value['tgl_lahir'] ?></td>
                                         <td><?= $value['tempat_lahir'] ?></td>

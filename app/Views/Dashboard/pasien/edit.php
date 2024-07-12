@@ -120,6 +120,23 @@
                                                         <?= session('errors.tmpt_lahir') ?>
                                                     </div>
                                                 </div>
+                                                <div class="mb-3">
+                                                    <label for="agama" class="form-label">Agama</label>
+                                                    <select name="agama" id="agama" class="form-control <?= session('errors.agama') ? 'is-invalid' : '' ?>">
+                                                        <option value="">Pilih Agama</option>
+                                                        <option value="Islam" <?= ($data_pasien['agama'] == 'Islam' ? 'selected' : '') ?>>Islam</option>
+                                                        <option value="Kristen" <?= ($data_pasien['agama'] == 'Kristen' ? 'selected' : '') ?>>Kristen</option>
+                                                        <option value="Katolik" <?= ($data_pasien['agama'] == 'Katolik' ? 'selected' : '') ?>>Katolik</option>
+                                                        <option value="Hindu" <?= ($data_pasien['agama'] == 'Hindu' ? 'selected' : '') ?>>Hindu</option>
+                                                        <option value="Buddha" <?= ($data_pasien['agama'] == 'Buddha' ? 'selected' : '') ?>>Buddha</option>
+                                                        <option value="Konghucu" <?= (old('agama') == 'Konghucu') ? 'selected' : '' ?>>Konghucu</option>
+                                                        <option value="Penghayat" <?= (old('agama') == 'Penghayat') ? 'selected' : '' ?>>Penghayat</option>
+                                                        <option value="Konghucu" <?= ($data_pasien['agama'] == 'Konghucu' ? 'selected' : '') ?>>Konghucu</option>
+                                                    </select>
+                                                    <div class="invalid-feedback">
+                                                        <?= session('errors.agama') ?>
+                                                    </div>
+                                                </div>
                                                 <!-- <div class="mb-3">
                                                     <label for="image" class="form-label">Foto</label>
                                                     <div class="image-container pb-4" id="show-img">
@@ -187,6 +204,24 @@
                                                     <input type="text" class='form-control <?= session('errors.pekerjaan') ? 'is-invalid' : '' ?>' name="pekerjaan" id="pekerjaan" value="<?= $data_pasien['pekerjaan'] ?>">
                                                     <div class="invalid-feedback">
                                                         <?= session('errors.pekerjaan') ?>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="pendidikan" class="form-label">Pendidikan</label>
+                                                    <select name="pendidikan" id="pendidikan" class="form-control <?= session('errors.pendidikan') ? 'is-invalid' : '' ?>">
+                                                        <option value="">Pilih Pendidikan</option>
+                                                        <option value="Tidak Sekolah" <?= ($data_pasien['pendidikan'] == 'Tidak Sekolah' ? 'selected' : '') ?>>Tidak Sekolah</option>
+                                                        <option value="SD" <?= ($data_pasien['pendidikan'] == 'SD' ? 'selected' : '') ?>>SD</option>
+                                                        <option value="SLTP (sederajat)" <?= ($data_pasien['pendidikan'] == 'SLTP (sederajat)' ? 'selected' : '') ?>>SLTP (sederajat)</option>
+                                                        <option value="SLTA (sederajat)" <?= ($data_pasien['pendidikan'] == 'SLTA (sederajat)' ? 'selected' : '') ?>>SLTA (sederajat)</option>
+                                                        <option value="D1-D3 (sederajat)" <?= ($data_pasien['pendidikan'] == 'D1-D3 (sederajat)' ? 'selected' : '') ?>>D1-D3 (sederajat)</option>
+                                                        <option value="D4" <?= ($data_pasien['pendidikan'] == 'D4' ? 'selected' : '') ?>>D4</option>
+                                                        <option value="S1" <?= ($data_pasien['pendidikan'] == 'S1' ? 'selected' : '') ?>>S1</option>
+                                                        <option value="S2" <?= ($data_pasien['pendidikan'] == 'S2' ? 'selected' : '') ?>>S2</option>
+                                                        <option value="S3" <?= ($data_pasien['pendidikan'] == 'S3' ? 'selected' : '') ?>>S3</option>
+                                                    </select>
+                                                    <div class="invalid-feedback">
+                                                        <?= session('errors.pendidikan') ?>
                                                     </div>
                                                 </div>
                                             </div>
