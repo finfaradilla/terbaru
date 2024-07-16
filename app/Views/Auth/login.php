@@ -4,7 +4,7 @@
 <div class="login-box">
     <div class="login-logo"> 
         <img src="<?= base_url('uploads/logo/logo.png') ?>" class="p-3" width="140vh" alt="Logo">
-        <img src="<?= base_url('uploads/logo/text-logo.png') ?>" width="240vh" class="p-3" alt="Logo">
+        <img src="<?= base_url('uploads/logo/text-logo.png') ?>" width="240vh" alt="Logo">
     </div>
     <div class="card">
         <div class="card-body login-card-body">
