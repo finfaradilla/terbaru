@@ -27,6 +27,52 @@ function tanggal($tanggal) {
     // Mengubah format tanggal
     return "$hari " . $bulanIndonesia[$bulan] . " $tahun";
 }
+
+function FormatDate($tanggal) {
+    // Array bulan dalam bahasa Indonesia
+    $bulanIndonesia = [
+        1 => 'Januari',
+        2 => 'Februari',
+        3 => 'Maret',
+        4 => 'April',
+        5 => 'Mei',
+        6 => 'Juni',
+        7 => 'Juli',
+        8 => 'Agustus',
+        9 => 'September',
+        10 => 'Oktober',
+        11 => 'November',
+        12 => 'Desember'
+    ];
+
+    // Cek apakah tanggal valid
+    $date = DateTime::createFromFormat('Y-m-d', $tanggal);
+    if (!$date) {
+        $date = DateTime::createFromFormat('d/m/Y', $tanggal);
+    }
+    if (!$date) {
+        $date = DateTime::createFromFormat('d-m-Y', $tanggal);
+    }
+    if (!$date) {
+        $date = DateTime::createFromFormat('m/d/Y', $tanggal);
+    }
+    if (!$date) {
+        $date = DateTime::createFromFormat('m-d-Y', $tanggal);
+    }
+
+    // Jika format tanggal tidak sesuai
+    if (!$date) {
+        return "Format tanggal tidak valid";
+    }
+
+    // Ambil bagian-bagian dari tanggal
+    $hari = $date->format('d');
+    $bulan = $date->format('n'); // Mengembalikan angka bulan tanpa leading zero
+    $tahun = $date->format('Y');
+
+    // Format ke dalam bahasa Indonesia
+    return $hari . ' ' . $bulanIndonesia[$bulan] . ' ' . $tahun;
+}
 ?>
 
 <?= $this->section('content') ?>
@@ -139,7 +185,7 @@ function tanggal($tanggal) {
                                         <td><?= $value['agama'] ?></td>
                                         <td><?= $value['pendidikan'] ?></td>
                                         <td><?= $value['jenis_kelamin'] ?></td>
-                                        <td><?= $value['tgl_lahir'] ?></td>
+                                        <td><?= FormatDate($value['tgl_lahir']) ?></td>
                                         <td><?= $value['tempat_lahir'] ?></td>
                                         <td><?= $value['alamat'] ?></td>
                                         <td><?= $value['no_tlp'] ?></td>

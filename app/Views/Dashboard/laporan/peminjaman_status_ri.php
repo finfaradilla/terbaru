@@ -1,5 +1,52 @@
 <?= $this->extend('Dashboard/layout') ?>
 <?= $this->section('content') ?>
+<?php
+            function FormatDate($tanggal) {
+                // Array bulan dalam bahasa Indonesia
+                $bulanIndonesia = [
+                    1 => 'Januari',
+                    2 => 'Februari',
+                    3 => 'Maret',
+                    4 => 'April',
+                    5 => 'Mei',
+                    6 => 'Juni',
+                    7 => 'Juli',
+                    8 => 'Agustus',
+                    9 => 'September',
+                    10 => 'Oktober',
+                    11 => 'November',
+                    12 => 'Desember'
+                ];
+            
+                // Cek apakah tanggal valid
+                $date = DateTime::createFromFormat('Y-m-d', $tanggal);
+                if (!$date) {
+                    $date = DateTime::createFromFormat('d/m/Y', $tanggal);
+                }
+                if (!$date) {
+                    $date = DateTime::createFromFormat('d-m-Y', $tanggal);
+                }
+                if (!$date) {
+                    $date = DateTime::createFromFormat('m/d/Y', $tanggal);
+                }
+                if (!$date) {
+                    $date = DateTime::createFromFormat('m-d-Y', $tanggal);
+                }
+            
+                // Jika format tanggal tidak sesuai
+                if (!$date) {
+                    return "Format tanggal tidak valid";
+                }
+            
+                // Ambil bagian-bagian dari tanggal
+                $hari = $date->format('d');
+                $bulan = $date->format('n'); // Mengembalikan angka bulan tanpa leading zero
+                $tahun = $date->format('Y');
+            
+                // Format ke dalam bahasa Indonesia
+                return $hari . ' ' . $bulanIndonesia[$bulan] . ' ' . $tahun;
+            }
+        ?>
 <main class="app-main">
     <!--begin::App Content Header-->
     <div class="app-content-header">
@@ -29,12 +76,14 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-sm">
-                                    <a href="<?= base_url('Laporan/PeminjamanstatusRI/exportCSV') ?>" class="btn btn-success">
+                                    <a href="<?= base_url('Laporan/PeminjamanstatusRI/exportCSV') ?>"
+                                        class="btn btn-success">
                                         <i class="fa-solid fa-file-csv" style="padding-right: 5px"></i> Export CSV
                                     </a>
                                 </div>
                                 <div class="col-sm-2 pt-1">
-                                    <input type="date" id="dateFilter" class="form-control me-2" onchange="filterTableByDate()" placeholder="Filter by Tanggal Masuk">
+                                    <input type="date" id="dateFilter" class="form-control me-2"
+                                        onchange="filterTableByDate()" placeholder="Filter by Tanggal Masuk">
                                 </div>
                             </div>
                         </div>
@@ -109,7 +158,7 @@
                                             <div class="text-center" style="color: black;">
                                                 <i class="fa-solid fa-clock"></i>
                                             </div>
-                                            <?= $value['data_laporan']['tanggal_masuk'] . ' Jam ' . $value['data_laporan']['jam_masuk'] ?>
+                                            <?= FormatDate($value['data_laporan']['tanggal_masuk']) . ' | ' . $value['data_laporan']['jam_masuk'] ?>
                                         </td>
                                         <?php
                                             if ($value['data_laporan']['tanggal_keluar'] != null) {
@@ -118,14 +167,16 @@
                                             <div class="text-center" style="color: green;">
                                                 <i class="fa-solid fa-circle-check"></i>
                                             </div>
-                                            <?= $value['data_laporan']['tanggal_keluar'] . ' Jam ' . $value['data_laporan']['jam_keluar'] ?>
+                                            <?= FormatDate($value['data_laporan']['tanggal_keluar']) . ' | ' . $value['data_laporan']['jam_keluar'] ?>
                                         </td>
                                         <?php
                                             } else {
                                         ?>
                                         <td>
                                             <p>Belum Pulang</p>
-                                            <button onclick="pulangkan('<?= $value['data_laporan']['id'] ?>', '<?= $value['data_pasien']['nama'] ?>')" class="btn btn-primary">Pulangkan</button>
+                                            <button
+                                                onclick="pulangkan('<?= $value['data_laporan']['id'] ?>', '<?= $value['data_pasien']['nama'] ?>')"
+                                                class="btn btn-primary">Pulangkan</button>
                                         </td>
                                         <?php
                                             }
@@ -154,73 +205,73 @@
 </main>
 
 <script>
-    function filterTableByDate() {
-        // Declare variables
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("dateFilter");
-        filter = input.value;
-        table = document.getElementById("dataTable");
-        tr = table.getElementsByTagName("tr");
+function filterTableByDate() {
+    // Declare variables
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("dateFilter");
+    filter = input.value;
+    table = document.getElementById("dataTable");
+    tr = table.getElementsByTagName("tr");
 
-        // Loop through all table rows, and hide those who don't match the filter query
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[8]; // Column index for "Tanggal Masuk"
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.includes(filter)) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }       
+    // Loop through all table rows, and hide those who don't match the filter query
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[8]; // Column index for "Tanggal Masuk"
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.includes(filter)) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
         }
     }
+}
 
-    function pulangkan(id, nama) {
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: "btn btn-success",
-                cancelButton: "btn btn-danger"
-            },
-            buttonsStyling: false
-        });
-        swalWithBootstrapButtons.fire({
-            title: "Apakah Yakin?",
-            text: "Apkah Kamu Yakin Ingin Menghapus Data " + nama,
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonText: "Yakin",
-            cancelButtonText: "Tidak",
-            reverseButtons: true
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: '<?= base_url('RawatInap/pulangkan') ?>',
-                    type: 'POST',
-                    data: {
-                        kode: id,
-                    },
-                    success: function(response) {
-                        window.location.reload();
-                    },
-                    error: function(xhr, status, error) {
-                        swalWithBootstrapButtons.fire({
-                            title: "Dibatalkan",
-                            text: "No Pendafataran " + nama + ' Gagal Pulangkan',
-                            icon: "error"
-                        });
-                    }
-                });
-            } else if (
-                result.dismiss === Swal.DismissReason.cancel
-            ) {
-                swalWithBootstrapButtons.fire({
-                    title: "Dibatalkan",
-                    text: "No Pendafataran " + nama + ' Gagal Dihapus',
-                    icon: "error"
-                });
-            }
-        });
-    }
+function pulangkan(id, nama) {
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: "btn btn-success",
+            cancelButton: "btn btn-danger"
+        },
+        buttonsStyling: false
+    });
+    swalWithBootstrapButtons.fire({
+        title: "Apakah Yakin?",
+        text: "Apkah Kamu Yakin Ingin Menghapus Data " + nama,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yakin",
+        cancelButtonText: "Tidak",
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: '<?= base_url('RawatInap/pulangkan') ?>',
+                type: 'POST',
+                data: {
+                    kode: id,
+                },
+                success: function(response) {
+                    window.location.reload();
+                },
+                error: function(xhr, status, error) {
+                    swalWithBootstrapButtons.fire({
+                        title: "Dibatalkan",
+                        text: "No Pendafataran " + nama + ' Gagal Pulangkan',
+                        icon: "error"
+                    });
+                }
+            });
+        } else if (
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            swalWithBootstrapButtons.fire({
+                title: "Dibatalkan",
+                text: "No Pendafataran " + nama + ' Gagal Dihapus',
+                icon: "error"
+            });
+        }
+    });
+}
 </script>
 <?= $this->endSection() ?>

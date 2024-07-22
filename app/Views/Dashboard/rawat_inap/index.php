@@ -22,8 +22,54 @@ function tanggal($tanggal) {
     $hari = intval($parts[2]);
     return "$hari " . $bulanIndonesia[$bulan] . " $tahun";
 }
-?>
 
+
+function FormatDate($tanggal) {
+    // Array bulan dalam bahasa Indonesia
+    $bulanIndonesia = [
+        1 => 'Januari',
+        2 => 'Februari',
+        3 => 'Maret',
+        4 => 'April',
+        5 => 'Mei',
+        6 => 'Juni',
+        7 => 'Juli',
+        8 => 'Agustus',
+        9 => 'September',
+        10 => 'Oktober',
+        11 => 'November',
+        12 => 'Desember'
+    ];
+
+    // Cek apakah tanggal valid
+    $date = DateTime::createFromFormat('Y-m-d', $tanggal);
+    if (!$date) {
+        $date = DateTime::createFromFormat('d/m/Y', $tanggal);
+    }
+    if (!$date) {
+        $date = DateTime::createFromFormat('d-m-Y', $tanggal);
+    }
+    if (!$date) {
+        $date = DateTime::createFromFormat('m/d/Y', $tanggal);
+    }
+    if (!$date) {
+        $date = DateTime::createFromFormat('m-d-Y', $tanggal);
+    }
+
+    // Jika format tanggal tidak sesuai
+    if (!$date) {
+        return "Format tanggal tidak valid";
+    }
+
+    // Ambil bagian-bagian dari tanggal
+    $hari = $date->format('d');
+    $bulan = $date->format('n'); // Mengembalikan angka bulan tanpa leading zero
+    $tahun = $date->format('Y');
+
+    // Format ke dalam bahasa Indonesia
+    return $hari . ' ' . $bulanIndonesia[$bulan] . ' ' . $tahun;
+}
+?>
 <?= $this->section('content') ?>
 <main class="app-main">
     <!--begin::App Content Header-->
@@ -123,7 +169,7 @@ function tanggal($tanggal) {
                                         <td><?= $value['data_pasien']['nama'] ?></td>
                                         <td><?= ($value['data_rawat_inap']['type'] == 'BPJS') ? "<span class='badge text-bg-success'>".$value['data_rawat_inap']['type'].'</span>' : "<span class='badge text-bg-primary'>".$value['data_rawat_inap']['type']."</span>" ?></td>
                                         <td><?= $value['data_rawat_inap']['keluhan'] ?></td>
-                                        <td width='10%'><?= $value['data_rawat_inap']['tgl_masuk'] . " Jam " . $value['data_rawat_inap']['jam_masuk'] ?></td>
+                                        <td width='10%'><?= FormatDate($value['data_rawat_inap']['tgl_masuk']) . " | " . $value['data_rawat_inap']['jam_masuk'] ?></td>
                                         <td><?= $value['data_kamar']['nama'] . " | " . $value['data_kamar']['kelas']?></td>
                                         <td><?= ($value['data_rawat_inap']['tgl_keluar'] != null) ? $value['data_rawat_inap']['tgl_keluar'] . ' Jam ' . $value['data_rawat_inap']['jam_keluar'] : "<span class='badge text-bg-warning'>Belum Pulang</span><br>" ?> <?php if($value['data_rawat_inap']['tgl_keluar'] == null) { ?><button onclick="pulangkan('<?= $value['data_rawat_inap']['id'] ?>', '<?= $value['data_rawat_inap']['no_pendaftaran'] ?>')" class='btn btn-primary m-2' style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Pulangkan</button><?php }?></td>
                                         <td><?= $value['data_dokter']['nama'] ?></td>

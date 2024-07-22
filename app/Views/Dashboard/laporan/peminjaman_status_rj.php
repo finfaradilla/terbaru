@@ -1,5 +1,52 @@
 <?= $this->extend('Dashboard/layout') ?>
 <?= $this->section('content') ?>
+<?php
+            function FormatDate($tanggal) {
+                // Array bulan dalam bahasa Indonesia
+                $bulanIndonesia = [
+                    1 => 'Januari',
+                    2 => 'Februari',
+                    3 => 'Maret',
+                    4 => 'April',
+                    5 => 'Mei',
+                    6 => 'Juni',
+                    7 => 'Juli',
+                    8 => 'Agustus',
+                    9 => 'September',
+                    10 => 'Oktober',
+                    11 => 'November',
+                    12 => 'Desember'
+                ];
+            
+                // Cek apakah tanggal valid
+                $date = DateTime::createFromFormat('Y-m-d', $tanggal);
+                if (!$date) {
+                    $date = DateTime::createFromFormat('d/m/Y', $tanggal);
+                }
+                if (!$date) {
+                    $date = DateTime::createFromFormat('d-m-Y', $tanggal);
+                }
+                if (!$date) {
+                    $date = DateTime::createFromFormat('m/d/Y', $tanggal);
+                }
+                if (!$date) {
+                    $date = DateTime::createFromFormat('m-d-Y', $tanggal);
+                }
+            
+                // Jika format tanggal tidak sesuai
+                if (!$date) {
+                    return "Format tanggal tidak valid";
+                }
+            
+                // Ambil bagian-bagian dari tanggal
+                $hari = $date->format('d');
+                $bulan = $date->format('n'); // Mengembalikan angka bulan tanpa leading zero
+                $tahun = $date->format('Y');
+            
+                // Format ke dalam bahasa Indonesia
+                return $hari . ' ' . $bulanIndonesia[$bulan] . ' ' . $tahun;
+            }
+        ?>
 <main class="app-main">
     <!--begin::App Content Header-->
     <div class="app-content-header">
@@ -104,7 +151,7 @@
                                             <div class="text-center" style="color: black;">
                                                 <i class="fa-solid fa-clock"></i>
                                             </div>
-                                            <?= $value['data_laporan']['tanggal'] . ' Jam ' . $value['data_laporan']['jam'] ?>
+                                            <?= FormatDate($value['data_laporan']['tanggal']) . ' | ' . $value['data_laporan']['jam'] ?>
                                         </td>
                                         <?php
                                             if ($value['data_laporan']['tanggal_kembali'] != null) {
@@ -113,7 +160,7 @@
                                                 <div class="text-center" style="color: green;">
                                                     <i class="fa-solid fa-circle-check"></i>
                                                 </div>
-                                                <?= $value['data_laporan']['tanggal_kembali'] . ' Jam ' . $value['data_laporan']['jam_kembali'] ?>
+                                                <?= FormatDate($value['data_laporan']['tanggal_kembali']) . ' | ' . $value['data_laporan']['jam_kembali'] ?>
                                             </td>
                                         <?php
                                             } else {

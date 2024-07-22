@@ -22,6 +22,52 @@ function tanggal($tanggal) {
     $hari = intval($parts[2]);
     return "$hari " . $bulanIndonesia[$bulan] . " $tahun";
 }
+
+function FormatDate($tanggal) {
+    // Array bulan dalam bahasa Indonesia
+    $bulanIndonesia = [
+        1 => 'Januari',
+        2 => 'Februari',
+        3 => 'Maret',
+        4 => 'April',
+        5 => 'Mei',
+        6 => 'Juni',
+        7 => 'Juli',
+        8 => 'Agustus',
+        9 => 'September',
+        10 => 'Oktober',
+        11 => 'November',
+        12 => 'Desember'
+    ];
+
+    // Cek apakah tanggal valid
+    $date = DateTime::createFromFormat('Y-m-d', $tanggal);
+    if (!$date) {
+        $date = DateTime::createFromFormat('d/m/Y', $tanggal);
+    }
+    if (!$date) {
+        $date = DateTime::createFromFormat('d-m-Y', $tanggal);
+    }
+    if (!$date) {
+        $date = DateTime::createFromFormat('m/d/Y', $tanggal);
+    }
+    if (!$date) {
+        $date = DateTime::createFromFormat('m-d-Y', $tanggal);
+    }
+
+    // Jika format tanggal tidak sesuai
+    if (!$date) {
+        return "Format tanggal tidak valid";
+    }
+
+    // Ambil bagian-bagian dari tanggal
+    $hari = $date->format('d');
+    $bulan = $date->format('n'); // Mengembalikan angka bulan tanpa leading zero
+    $tahun = $date->format('Y');
+
+    // Format ke dalam bahasa Indonesia
+    return $hari . ' ' . $bulanIndonesia[$bulan] . ' ' . $tahun;
+}
 ?>
 
 <?= $this->section('content') ?>
@@ -122,7 +168,7 @@ function tanggal($tanggal) {
                                         <td><?= $value['data_pasien']['nama'] ?></td>
                                         <td><?= ($value['data_rawat_jalan']['type'] == 'BPJS') ? "<span class='badge text-bg-success'>".$value['data_rawat_jalan']['type'].'</span>' : "<span class='badge text-bg-primary'>".$value['data_rawat_jalan']['type']."</span>" ?></td>
                                         <td><?= $value['data_rawat_jalan']['keluhan'] ?></td>
-                                        <td width='10%'><?= $value['data_rawat_jalan']['tanggal'] . " Jam " . $value['data_rawat_jalan']['jam'] ?></td>
+                                        <td width='10%'><?= FormatDate($value['data_rawat_jalan']['tanggal']) . " | " . $value['data_rawat_jalan']['jam'] ?></td>
                                         <td><?= $value['data_rawat_jalan']['id_poli'] ?></td>
                                         <td><?= $value['data_dokter']['nama'] ?></td>
                                         <td width="12%">

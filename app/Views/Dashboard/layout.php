@@ -245,6 +245,8 @@
             <!--end::Sidebar Wrapper-->
         </aside>
 
+        
+
         <?php echo $this->renderSection('content') ?>
 
         <footer class="app-footer">
