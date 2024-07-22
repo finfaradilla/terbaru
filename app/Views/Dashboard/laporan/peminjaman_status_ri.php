@@ -206,19 +206,23 @@
 
 <script>
 function filterTableByDate() {
-    // Declare variables
     var input, filter, table, tr, td, i, txtValue;
     input = document.getElementById("dateFilter");
-    filter = input.value;
+    filter = new Date(input.value);
+    if (!isNaN(filter)) {
+        var options = { day: 'numeric', month: 'long', year: 'numeric', locale: 'id-ID' };
+        var formattedDate = filter.toLocaleDateString('id-ID', options);
+    } else {
+        formattedDate = "";
+    }
+    
     table = document.getElementById("dataTable");
     tr = table.getElementsByTagName("tr");
-
-    // Loop through all table rows, and hide those who don't match the filter query
     for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[8]; // Column index for "Tanggal Masuk"
+        td = tr[i].getElementsByTagName("td")[7];
         if (td) {
             txtValue = td.textContent || td.innerText;
-            if (txtValue.includes(filter)) {
+            if (txtValue.includes(formattedDate)) {
                 tr[i].style.display = "";
             } else {
                 tr[i].style.display = "none";

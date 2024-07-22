@@ -81,7 +81,8 @@
                                     </a>
                                 </div>
                                 <div class="col-sm-2 pt-1">
-                                    <input type="date" id="dateFilter" class="form-control me-2" onchange="filterTableByDate()" placeholder="Filter by Tanggal Masuk">
+                                    <input type="date" id="dateFilter" class="form-control me-2"
+                                        onchange="filterTableByDate()" placeholder="Filter by Tanggal Masuk">
                                 </div>
                             </div>
                         </div>
@@ -130,7 +131,7 @@
                                         <th>Tgl & Jam Kembali</th>
                                     </tr>
                                 </thead>
-                                <tbody id="dataTable">
+                                <tbody id="dataTableRJ">
                                     <?php
                                         if (!empty($data)) {
                                             $no = 1;
@@ -194,28 +195,31 @@
         </div>
     </div>
 </main>
-
 <script>
-    function filterTableByDate() {
-        // Declare variables
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("dateFilter");
-        filter = input.value;
-        table = document.getElementById("dataTable");
-        tr = table.getElementsByTagName("tr");
-
-        // Loop through all table rows, and hide those who don't match the filter query
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[6]; // Column index for "Tanggal Masuk"
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.includes(filter)) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }       
+function filterTableByDate() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("dateFilter");
+    filter = new Date(input.value);
+    if (!isNaN(filter)) {
+        var options = { day: '2-digit', month: 'long', year: 'numeric', locale: 'id-ID' };
+        var formattedDate = filter.toLocaleDateString('id-ID', options);
+    } else {
+        formattedDate = "";
+    }
+    table = document.getElementById("dataTableRJ");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td");
+        if (td) {
+            txtValue = td[5].textContent || td[5].innerText;
+            if (txtValue.includes(formattedDate)) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
         }
     }
+}
 </script>
+
 <?= $this->endSection() ?>
