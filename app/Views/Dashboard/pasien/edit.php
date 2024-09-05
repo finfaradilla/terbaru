@@ -76,6 +76,8 @@
                                                         <option value="">Pilih Jenis Kelamin</option>
                                                         <option value="L" <?= ($data_pasien['jenis_kelamin'] == 'L' ? 'selected' : '') ?>>Laki - Laki</option>
                                                         <option value="P" <?= ($data_pasien['jenis_kelamin'] == 'P' ? 'selected' : '') ?>>Perempuan</option>
+                                                        <option value="TD" <?= ($data_pasien['jenis_kelamin'] == 'TD' ? 'selected' : '') ?>>Tidak Dapat Ditentukan</option>
+                                                        <option value="TM" <?= ($data_pasien['jenis_kelamin'] == 'TD' ? 'selected' : '') ?>>Tidak Mengisi</option>
                                                     </select>
                                                     <div class="invalid-feedback">
                                                         <?= session('errors.jenis_kelamin') ?>
@@ -101,6 +103,8 @@
                                                         <option value="">Pilih Status Pernikahan</option>
                                                         <option value="Belum Kawin" <?= ($data_pasien['status'] == 'Belum Kawin' ? 'selected' : '') ?>>Belum Kawin</option>
                                                         <option value="Sudah Kawin" <?= ($data_pasien['status'] == 'Sudah Kawin' ? 'selected' : '') ?>>Sudah Kawin</option>
+                                                        <option value="Cerai Hidup" <?= ($data_pasien['status'] == 'Cerai Hidup' ? 'selected' : '') ?>>Cerai Hidup</option>
+                                                        <option value="Cerai Mati" <?= ($data_pasien['status'] == 'Cerai Mati' ? 'selected' : '') ?>>Cerai Mati</option>
                                                     </select>
                                                     <div class="invalid-feedback">
                                                         <?= session('errors.status') ?>
@@ -201,7 +205,14 @@
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="pekerjaan" class="form-label">Pekerjaan</label>
-                                                    <input type="text" class='form-control <?= session('errors.pekerjaan') ? 'is-invalid' : '' ?>' name="pekerjaan" id="pekerjaan" value="<?= $data_pasien['pekerjaan'] ?>">
+                                                    <select class='form-control <?= session('errors.pekerjaan') ? 'is-invalid' : '' ?>' name="pekerjaan" id="pekerjaan" onchange="toggleTextInput()">
+                                                        <option value="">Pilih Pekerjaan</option>
+                                                        <option value="PNS" <?= old('pekerjaan', $data_pasien['pekerjaan']) == 'PNS' ? 'selected' : '' ?>>PNS</option>
+                                                        <option value="TNI/POLRI" <?= old('pekerjaan', $data_pasien['pekerjaan']) == 'TNI/POLRI' ? 'selected' : '' ?>>TNI/POLRI</option>
+                                                        <option value="BUMN" <?= old('pekerjaan', $data_pasien['pekerjaan']) == 'BUMN' ? 'selected' : '' ?>>BUMN</option>
+                                                        <option value="Pegawai Swasta/Wirausaha" <?= old('pekerjaan', $data_pasien['pekerjaan']) == 'Pegawai Swasta/Wirausaha' ? 'selected' : '' ?>>Pegawai Swasta/Wirausaha</option>
+                                                        <option value="Lain lain" <?= old('pekerjaan', $data_pasien['pekerjaan']) == 'Lain lain' ? 'selected' : '' ?>>Lain lain</option>
+                                                    </select>
                                                     <div class="invalid-feedback">
                                                         <?= session('errors.pekerjaan') ?>
                                                     </div>
@@ -241,81 +252,81 @@
 </main>
 <script>
     fetch(`https://kanglerian.github.io/api-wilayah-indonesia/api/provinces.json`)
-    .then(response => response.json())
-    .then(provinces => {
-        var data = provinces;
-        var option = `<option value="">-- Pilih Nama Provinsi --</option>`;
-        data.forEach(element => {
-            var selected = ('<?= $data_pasien['provinsi'] ?>' == element.name) ? `selected` : '';
-            console.log("Hasil : ", selected);
-            option += `<option data-reg="${element.id}" value="${element.name}" ${selected}>${element.name}</option>`
+        .then(response => response.json())
+        .then(provinces => {
+            var data = provinces;
+            var option = `<option value="">-- Pilih Nama Provinsi --</option>`;
+            data.forEach(element => {
+                var selected = ('<?= $data_pasien['provinsi'] ?>' == element.name) ? `selected` : '';
+                console.log("Hasil : ", selected);
+                option += `<option data-reg="${element.id}" value="${element.name}" ${selected}>${element.name}</option>`
+            });
+            document.getElementById('provinsi').innerHTML = option;
         });
-        document.getElementById('provinsi').innerHTML = option;
-    });
 
     const pilihKota = document.getElementById('provinsi');
     pilihKota.addEventListener('change', (element) => {
         var provinsiIndex = element.target.options[element.target.selectedIndex].dataset.reg;
         fetch(`https://kanglerian.github.io/api-wilayah-indonesia/api/regencies/${provinsiIndex}.json`)
-        .then(response => response.json())
-        .then(kota => {
-            var data = kota;
-            var option = `<option value="">-- Pilih Nama Kota --</option>`;
-            data.forEach(element => {
-                var selected = ('<?= $data_pasien['kota'] ?>' == element.name) ? `${element.name}` : '';
-                option += `<option data-reg="${element.id}" value="${element.name}" ${selected}>${element.name}</option>`
+            .then(response => response.json())
+            .then(kota => {
+                var data = kota;
+                var option = `<option value="">-- Pilih Nama Kota --</option>`;
+                data.forEach(element => {
+                    var selected = ('<?= $data_pasien['kota'] ?>' == element.name) ? `${element.name}` : '';
+                    option += `<option data-reg="${element.id}" value="${element.name}" ${selected}>${element.name}</option>`
+                });
+                document.getElementById('kota').innerHTML = option;
             });
-            document.getElementById('kota').innerHTML = option;
-        });
     })
 
     const pilihKecamatan = document.getElementById('kota');
     pilihKecamatan.addEventListener('change', (element) => {
         var kotaIndex = element.target.options[element.target.selectedIndex].dataset.reg;
         fetch(`https://kanglerian.github.io/api-wilayah-indonesia/api/districts/${kotaIndex}.json`)
-        .then(response => response.json())
-        .then(kecamatan => {
-            var data = kecamatan;
-            var option = `<option value="">-- Pilih Nama Kecamatan --</option>`;
-            data.forEach(element => {
-                var selected = ('<?= $data_pasien['kecamatan'] ?>' == element.name) ? `${element.name}` : '';
-                option += `<option data-reg="${element.id}" value="${element.name}" ${selected}>${element.name}</option>`
+            .then(response => response.json())
+            .then(kecamatan => {
+                var data = kecamatan;
+                var option = `<option value="">-- Pilih Nama Kecamatan --</option>`;
+                data.forEach(element => {
+                    var selected = ('<?= $data_pasien['kecamatan'] ?>' == element.name) ? `${element.name}` : '';
+                    option += `<option data-reg="${element.id}" value="${element.name}" ${selected}>${element.name}</option>`
+                });
+                document.getElementById('kecamatan').innerHTML = option;
             });
-            document.getElementById('kecamatan').innerHTML = option;
-        });
     })
 
     const pilihKelurahan = document.getElementById('kecamatan');
     pilihKelurahan.addEventListener('change', (element) => {
         var kecamatanIndex = element.target.options[element.target.selectedIndex].dataset.reg;
         fetch(`https://kanglerian.github.io/api-wilayah-indonesia/api/villages/${kecamatanIndex}.json`)
-        .then(response => response.json())
-        .then(kecamatan => {
-            var data = kecamatan;
-            var option = `<option value="">-- Pilih Kelurahan --</option>`;
-            data.forEach(element => {
-                var selected = ('<?= $data_pasien['kelurahan'] ?>' == element.name) ? `${element.name}` : '';
-                option += `<option data-reg="${element.id}" value="${element.name}" ${selected}>${element.name}</option>`
+            .then(response => response.json())
+            .then(kecamatan => {
+                var data = kecamatan;
+                var option = `<option value="">-- Pilih Kelurahan --</option>`;
+                data.forEach(element => {
+                    var selected = ('<?= $data_pasien['kelurahan'] ?>' == element.name) ? `${element.name}` : '';
+                    option += `<option data-reg="${element.id}" value="${element.name}" ${selected}>${element.name}</option>`
+                });
+                document.getElementById('kelurahan').innerHTML = option;
             });
-            document.getElementById('kelurahan').innerHTML = option;
-        });
     })
 
 
 
     document.getElementById('image').addEventListener('change', function(event) {
-    const file = event.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const showImg = document.getElementById('show-img');
-            showImg.style.display = 'block';
-            const imgElement = document.getElementById('imageDisplay');
-            imgElement.src = e.target.result;
-        };
-        reader.readAsDataURL(file);
-    }
-});
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const showImg = document.getElementById('show-img');
+                showImg.style.display = 'block';
+                const imgElement = document.getElementById('imageDisplay');
+                imgElement.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
 
 </script>
 <?= $this->endSection() ?>

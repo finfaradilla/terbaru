@@ -122,6 +122,8 @@ class Pasien extends BaseController
         if(!$valid) {
             return redirect()->back()->withInput()->with('errors', $this->Validation->getErrors());
         }
+        $pekerjaan = $this->request->getVar('pekerjaan');
+        $otherPekerjaan = $this->request->getVar('other_pekerjaan');
         $no_rm = random_int(999, 999999);
         $data = [
             'no_ktp' => $this->request->getVar('no_ktp'),
@@ -142,6 +144,7 @@ class Pasien extends BaseController
             'alamat' => $this->request->getVar('alamat'),
             'no_tlp' => $this->request->getVar('no_tlp'),
             'pekerjaan' => $this->request->getVar('pekerjaan'),
+            'pekerjaan' => $pekerjaan === 'Lain lain' ? $otherPekerjaan : $pekerjaan,
             'tempat_lahir' => $this->request->getVar('tmpt_lahir'),
         ];
         $this->Model->save($data);

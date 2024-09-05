@@ -65,7 +65,7 @@ class DataPasien extends Migration
             ],
             'jenis_kelamin' => [
                 'type' => 'ENUM',
-                'constraint' => ['L', 'P'],
+                'constraint' => ['L', 'P', 'TD', 'TM'],
                 'null' => true,
             ],
             'tgl_lahir' => [

@@ -161,6 +161,7 @@ function FormatDate($tanggal) {
                                         <th>Tempat Lahir</th>
                                         <th>Alamat</th>
                                         <th>No Telp</th>
+                                        <th>Status</th>
                                         <th>Pekerjaan</th>
                                         <th style="width: 10%">Action</th>
                                     </tr>
@@ -189,7 +190,8 @@ function FormatDate($tanggal) {
                                         <td><?= $value['tempat_lahir'] ?></td>
                                         <td><?= $value['alamat'] ?></td>
                                         <td><?= $value['no_tlp'] ?></td>
-                                        <td><?= $value['pekerjaan'] ?></td>
+                                        <td><?= $value['status'] ?></td>
+                                        <td><?= htmlspecialchars($value['pekerjaan'], ENT_QUOTES, 'UTF-8') ?></td>
                                         <td>
                                             <a href="<?= base_url('Pasien/edit/'.$value['id']) ?>"
                                                 class="btn btn-warning m-1">

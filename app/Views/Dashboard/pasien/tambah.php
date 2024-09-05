@@ -70,6 +70,8 @@
                                                         <option value="">Pilih Jenis Kelamin</option>
                                                         <option value="L" <?= (old('jenis_kelamin') == 'L') ? 'selected' : '' ?>>Laki - Laki</option>
                                                         <option value="P" <?= (old('jenis_kelamin') == 'P') ? 'selected' : '' ?>>Perempuan</option>
+                                                        <option value="TD" <?= (old('jenis_kelamin') == 'TD') ? 'selected' : '' ?>>Tidak Dapat Ditentukan</option>
+                                                        <option value="TM" <?= (old('jenis_kelamin') == 'TM') ? 'selected' : '' ?>>Tidak Mengisi</option>
                                                     </select>
                                                     <div class="invalid-feedback">
                                                         <?= session('errors.jenis_kelamin') ?>
@@ -79,7 +81,7 @@
                                                     <label for="gol_darah" class="form-label">Golongan Darah</label>
                                                     <select name="gol_darah" id="gol_darah" class="form-control <?= session('errors.gol_darah') ? 'is-invalid' : '' ?>"">
                                                         <option value="">Pilih Golongan Darah</option>
-                                                        <option value="Tidak Diketahui" <?= (old('gol_darah') == 'Tidak Diketahui') ? 'selected' : '' ?>>Tidak Diketahui</option>
+                                                        <option value=" Tidak Diketahui" <?= (old('gol_darah') == 'Tidak Diketahui') ? 'selected' : '' ?>>Tidak Diketahui</option>
                                                         <option value="A" <?= (old('gol_darah') == 'A') ? 'selected' : '' ?>>A</option>
                                                         <option value="B" <?= (old('gol_darah') == 'B') ? 'selected' : '' ?>>B</option>
                                                         <option value="AB" <?= (old('gol_darah') == 'AB') ? 'selected' : '' ?>>AB</option>
@@ -139,6 +141,8 @@
                                                         <option value="">Pilih Status Pernikahan</option>
                                                         <option value="Belum Kawin" <?= (old('status') == 'Belum Kawin') ? 'selected' : '' ?>>Belum Kawin</option>
                                                         <option value="Sudah Kawin" <?= (old('status') == 'Sudah Kawin') ? 'selected' : '' ?>>Sudah Kawin</option>
+                                                        <option value="Cerai Hidup" <?= (old('status') == 'Cerai Hidup') ? 'selected' : '' ?>>Cerai Hidup</option>
+                                                        <option value="Cerai Mati" <?= (old('status') == 'Cerai Mati') ? 'selected' : '' ?>>Cerai Mati</option>
                                                     </select>
                                                     <div class="invalid-feedback">
                                                         <?= session('errors.status') ?>
@@ -221,7 +225,14 @@
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="pekerjaan" class="form-label">Pekerjaan</label>
-                                                    <input type="text" class='form-control <?= session('errors.pekerjaan') ? 'is-invalid' : '' ?>' name="pekerjaan" id="pekerjaan" value="<?= old('pekerjaan') ?>">
+                                                    <select class='form-control <?= session('errors.pekerjaan') ? 'is-invalid' : '' ?>' name="pekerjaan" id="pekerjaan" onchange="toggleTextInput()">
+                                                        <option value="">Pilih Pekerjaan</option>
+                                                        <option value="PNS" <?= old('pekerjaan') == 'PNS' ? 'selected' : '' ?>>PNS</option>
+                                                        <option value="TNI/POLRI" <?= old('pekerjaan') == 'TNI/POLRI' ? 'selected' : '' ?>>TNI/POLRI</option>
+                                                        <option value="BUMN" <?= old('pekerjaan') == 'BUMN' ? 'selected' : '' ?>>BUMN</option>
+                                                        <option value="Pegawai Swasta/Wirausaha" <?= old('pekerjaan') == 'Pegawai Swasta/Wirausaha' ? 'selected' : '' ?>>Pegawai Swasta/Wirausaha</option>
+                                                        <option value="Lain lain" <?= old('pekerjaan') == 'Lain lain' ? 'selected' : '' ?>>Lain lain</option>
+                                                    </select>
                                                     <div class="invalid-feedback">
                                                         <?= session('errors.pekerjaan') ?>
                                                     </div>
@@ -261,59 +272,60 @@
 </main>
 <script>
     fetch(`https://kanglerian.github.io/api-wilayah-indonesia/api/provinces.json`)
-    .then(response => response.json())
-    .then(provinces => {
-        var data = provinces;
-        var option = `<option value="">-- Pilih Nama Provinsi --</option>`;
-        data.forEach(element => {
-            option += `<option data-reg="${element.id}" value="${element.name}">${element.name}</option>`
+        .then(response => response.json())
+        .then(provinces => {
+            var data = provinces;
+            var option = `<option value="">-- Pilih Nama Provinsi --</option>`;
+            data.forEach(element => {
+                option += `<option data-reg="${element.id}" value="${element.name}">${element.name}</option>`
+            });
+            document.getElementById('provinsi').innerHTML = option;
         });
-        document.getElementById('provinsi').innerHTML = option;
-    });
 
     const pilihKota = document.getElementById('provinsi');
     pilihKota.addEventListener('change', (element) => {
         var provinsiIndex = element.target.options[element.target.selectedIndex].dataset.reg;
         fetch(`https://kanglerian.github.io/api-wilayah-indonesia/api/regencies/${provinsiIndex}.json`)
-        .then(response => response.json())
-        .then(kota => {
-            var data = kota;
-            var option = `<option value="">-- Pilih Nama Kota --</option>`;
-            data.forEach(element => {
-                option += `<option data-reg="${element.id}" value="${element.name}">${element.name}</option>`
+            .then(response => response.json())
+            .then(kota => {
+                var data = kota;
+                var option = `<option value="">-- Pilih Nama Kota --</option>`;
+                data.forEach(element => {
+                    option += `<option data-reg="${element.id}" value="${element.name}">${element.name}</option>`
+                });
+                document.getElementById('kota').innerHTML = option;
             });
-            document.getElementById('kota').innerHTML = option;
-        });
     })
 
     const pilihKecamatan = document.getElementById('kota');
     pilihKecamatan.addEventListener('change', (element) => {
         var kotaIndex = element.target.options[element.target.selectedIndex].dataset.reg;
         fetch(`https://kanglerian.github.io/api-wilayah-indonesia/api/districts/${kotaIndex}.json`)
-        .then(response => response.json())
-        .then(kecamatan => {
-            var data = kecamatan;
-            var option = `<option value="">-- Pilih Nama Kecamatan --</option>`;
-            data.forEach(element => {
-                option += `<option data-reg="${element.id}" value="${element.name}">${element.name}</option>`
+            .then(response => response.json())
+            .then(kecamatan => {
+                var data = kecamatan;
+                var option = `<option value="">-- Pilih Nama Kecamatan --</option>`;
+                data.forEach(element => {
+                    option += `<option data-reg="${element.id}" value="${element.name}">${element.name}</option>`
+                });
+                document.getElementById('kecamatan').innerHTML = option;
             });
-            document.getElementById('kecamatan').innerHTML = option;
-        });
     })
 
     const pilihKelurahan = document.getElementById('kecamatan');
     pilihKelurahan.addEventListener('change', (element) => {
         var kecamatanIndex = element.target.options[element.target.selectedIndex].dataset.reg;
         fetch(`https://kanglerian.github.io/api-wilayah-indonesia/api/villages/${kecamatanIndex}.json`)
-        .then(response => response.json())
-        .then(kecamatan => {
-            var data = kecamatan;
-            var option = `<option value="">-- Pilih Kelurahan --</option>`;
-            data.forEach(element => {
-                option += `<option data-reg="${element.id}" value="${element.name}">${element.name}</option>`
+            .then(response => response.json())
+            .then(kecamatan => {
+                var data = kecamatan;
+                var option = `<option value="">-- Pilih Kelurahan --</option>`;
+                data.forEach(element => {
+                    option += `<option data-reg="${element.id}" value="${element.name}">${element.name}</option>`
+                });
+                document.getElementById('kelurahan').innerHTML = option;
             });
-            document.getElementById('kelurahan').innerHTML = option;
-        });
     })
+
 </script>
 <?= $this->endSection() ?>
